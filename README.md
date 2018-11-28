@@ -1,6 +1,6 @@
 # IDM SDB Data Server Services
 
-<img align="right" src="logo1.png"/>
+<img align="right" src="logo.png"/>
 
 ## # IDM SDB Data Server Services
 The Data Server Services for the store
