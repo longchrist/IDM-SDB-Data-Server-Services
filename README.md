@@ -5,7 +5,7 @@
 ## # IDM SDB Data Server Services
 The Data Server Services for the store
 
-## SRN CRM CMS Resources
+## System
 
 1. Tools : IntelliJ++
 2. Lang : J2EE
