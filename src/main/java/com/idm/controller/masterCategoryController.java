@@ -24,7 +24,7 @@ public class masterCategoryController {
     public String getAllCategory() {
         String All = "";
         masterCategoryAO MCCAO = new masterCategoryAO();
-        All = MCCAO.getAllmasterBrand();
+        All = MCCAO.getAllMasterCategory();
         return All;
     }
 
