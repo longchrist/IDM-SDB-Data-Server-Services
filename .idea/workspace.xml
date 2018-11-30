@@ -5,6 +5,9 @@
       <artifact name="unnamed" />
     </artifacts-to-build>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java" line="56" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="06a530d0-18fa-4003-9ad5-013f1f3caf8b" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -143,14 +146,14 @@
           <entry key="gradle" value="2" />
           <entry key="gradlew" value="1" />
           <entry key="iml" value="1" />
-          <entry key="java" value="23" />
+          <entry key="java" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Groovy" value="2" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="23" />
+          <entry key="JAVA" value="25" />
           <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
@@ -158,13 +161,13 @@
         <counts>
           <entry key="dummy" value="32" />
           <entry key="gradle" value="7" />
-          <entry key="java" value="7095" />
+          <entry key="java" value="7963" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="7" />
-          <entry key="JAVA" value="7095" />
+          <entry key="JAVA" value="7963" />
           <entry key="PLAIN_TEXT" value="32" />
         </counts>
       </usages-collector>
@@ -220,14 +223,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3706">
-              <caret line="218" lean-forward="true" selection-start-line="218" selection-end-line="218" />
+            <state relative-caret-position="187">
+              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="239" column="26" selection-start-line="239" selection-start-column="26" selection-end-line="239" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -692,6 +716,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterCustomerAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPackagingAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java" />
       </list>
     </option>
   </component>
@@ -803,7 +829,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543548807388" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543563992037" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -998,8 +1024,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterCabangTypeDAO.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/META-INF/MANIFEST.MF" />
     <entry file="file://$PROJECT_DIR$/src/main/MANIFEST.MF" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterWalkthroughActivities.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterWalkthroughCheck.java" />
@@ -1532,11 +1556,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3706">
-          <caret line="218" lean-forward="true" selection-start-line="218" selection-end-line="218" />
+        <state relative-caret-position="187">
+          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="239" column="26" selection-start-line="239" selection-start-column="26" selection-end-line="239" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
         </state>
       </provider>
     </entry>
