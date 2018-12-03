@@ -1,7 +1,7 @@
 package com.idm.dao;
 
 import com.idm.connection.dbConnection;
-import com.idm.model.masterPriceMod;
+import com.idm.model.masterProductMod;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,45 +26,84 @@ public class masterProductAO {
         Statement stmt = null;
         ResultSet rs;
 
+        int productId = 0;
+        int categoryId = 0;
+        int subCategoryId = 0;
         int priceId = 0;
-        int pricePerUnit = 0;
-        int salesPrice = 0;
-        String startDate = "";
-        String endDate = "";
+        int stockId = 0;
+        int statusId = 0;
+        int unitId = 0;
+        int photoId = 0;
+        String productName = "";
+        int productUnit = 0;
+        int productQty = 0;
+        String productDescriptions = "";
+        String productCondition = "";
+        String productNotes = "";
+        String addDate = "";
+        String addBy = "";
+        String editedDate = "";
+        String editedBy = "";
         String isActive = "";
 
         JSONObject JSONObjectRoot = new JSONObject();
-        JSONArray DATA_MASTER_PRICE = new JSONArray();
+        JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         try {
             dbConnection DC = new dbConnection();
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            String query = "SELECT price_id, price_per_unit, sales_price, start_date, end_date, is_active FROM tb_master_price";
+            String query = "SELECT product_id, category_id, sub_category_id, price_id, stock_id, status_id, unit_id, photo_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_product";
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
+                productId = rs.getInt("PRODUCT_ID");
+                categoryId = rs.getInt("CATEGORY_ID");
+                subCategoryId = rs.getInt("SUB_CATEGORY_ID");
                 priceId = rs.getInt("PRICE_ID");
-                pricePerUnit = rs.getInt("PRICE_PER_UNIT");
-                salesPrice = rs.getInt("SALES_PRICE");
-                startDate = rs.getString("START_DATE");
-                endDate = rs.getString("END_DATE");
+                stockId = rs.getInt("STOCK_ID");
+                statusId = rs.getInt("STATUS_ID");
+                unitId = rs.getInt("UNIT_ID");
+                photoId = rs.getInt("PHOTO_ID");
+                productName = rs.getString("PRODUCT_NAME");
+                productUnit = rs.getInt("PRODUCT_UNIT");
+                productQty = rs.getInt("PRODUCT_QTY");
+                productDescriptions = rs.getString("PRODUCT_DESCRIPTIONS");
+                productCondition = rs.getString("PRODUCT_CONDITION");
+                productNotes = rs.getString("PRODUCT_NOTES");
+                addDate = rs.getString("ADD_DATE");
+                addBy = rs.getString("ADD_BY");
+                editedDate = rs.getString("EDITED_DATE");
+                editedBy = rs.getString("EDITED_BY");
                 isActive = rs.getString("IS_ACTIVE");
 
-                JSONObject DATA_PRICE = new JSONObject();
+                JSONObject DATA_PRODUCT = new JSONObject();
 
-                DATA_PRICE.put("PRICE_ID", new Integer(priceId));
-                DATA_PRICE.put("PRICE_PER_UNIT", new Integer(pricePerUnit));
-                DATA_PRICE.put("SALES_PRICE", new Integer(salesPrice));
-                DATA_PRICE.put("START_DATE", new String(startDate));
-                DATA_PRICE.put("END_DATE", new String(endDate));
-                DATA_PRICE.put("IS_ACTIVE", new String(isActive));
+                DATA_PRODUCT.put("PRODUCT_ID", new Integer(productId));
+                DATA_PRODUCT.put("CATEGORY_ID", new Integer(categoryId));
+                DATA_PRODUCT.put("SUB_CATEGORY_ID", new Integer(subCategoryId));
+                DATA_PRODUCT.put("PRICE_ID", new Integer(priceId));
+                DATA_PRODUCT.put("STOCK_ID", new Integer(stockId));
+                DATA_PRODUCT.put("STATUS_ID", new Integer(statusId));
+                DATA_PRODUCT.put("UNIT_ID", new Integer(unitId));
+                DATA_PRODUCT.put("PHOTO_ID", new Integer(photoId));
+                DATA_PRODUCT.put("PRODUCT_NAME", new String(productName));
+                DATA_PRODUCT.put("PRODUCT_UNIT", new Integer(productUnit));
+                DATA_PRODUCT.put("PRODUCT_QTY", new Integer(productQty));
+                DATA_PRODUCT.put("PRODUCT_DESCRIPTIONS", new String(productDescriptions));
+                DATA_PRODUCT.put("PRODUCT_CONDITION", new String(productCondition));
+                DATA_PRODUCT.put("PRODUCT_NOTES", new String(productNotes));
+                DATA_PRODUCT.put("ADD_DATE", new String(addDate));
+                DATA_PRODUCT.put("ADD_BY", new String(addBy));
+                DATA_PRODUCT.put("EDITED_DATE", new String(editedDate));
+                DATA_PRODUCT.put("EDITED_BY", new String(editedBy));
+                DATA_PRODUCT.put("IS_ACTIVE", new String(isActive));
 
-                DATA_MASTER_PRICE.put(DATA_PRICE);
+                DATA_MASTER_PRODUCT.put(DATA_PRODUCT);
             }
 
-            JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
+            JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
             jsonResponse += JSONObjectRoot.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,52 +112,91 @@ public class masterProductAO {
         return jsonResponse;
     }
 
-    public String getMasterPrice(masterPriceMod MPM){
+    public String getMasterProduct(masterProductMod MPM){
         String jsonResponse = "";
 
         Statement stmt = null;
         ResultSet rs;
 
+        int productId = 0;
+        int categoryId = 0;
+        int subCategoryId = 0;
         int priceId = 0;
-        int pricePerUnit = 0;
-        int salesPrice = 0;
-        String startDate = "";
-        String endDate = "";
+        int stockId = 0;
+        int statusId = 0;
+        int unitId = 0;
+        int photoId = 0;
+        String productName = "";
+        int productUnit = 0;
+        int productQty = 0;
+        String productDescriptions = "";
+        String productCondition = "";
+        String productNotes = "";
+        String addDate = "";
+        String addBy = "";
+        String editedDate = "";
+        String editedBy = "";
         String isActive = "";
 
         JSONObject JSONObjectRoot = new JSONObject();
-        JSONArray DATA_MASTER_PRICE = new JSONArray();
+        JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         try {
             dbConnection DC = new dbConnection();
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("SELECT price_id, price_per_unit, sales_price, start_date, end_date, is_active FROM tb_master_price WHERE price_id = ?");
-            ps.setInt(1, MPM.getPriceId());
+            PreparedStatement ps = this.conn.prepareStatement("SELECT product_id, category_id, sub_category_id, price_id, stock_id, status_id, unit_id, photo_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_product WHERE product_id = ?");
+            ps.setInt(1, MPM.getProductId());
             rs = ps.executeQuery();
 
             while (rs.next()) {
+                productId = rs.getInt("PRODUCT_ID");
+                categoryId = rs.getInt("CATEGORY_ID");
+                subCategoryId = rs.getInt("SUB_CATEGORY_ID");
                 priceId = rs.getInt("PRICE_ID");
-                pricePerUnit = rs.getInt("PRICE_PER_UNIT");
-                salesPrice = rs.getInt("SALES_PRICE");
-                startDate = rs.getString("START_DATE");
-                endDate = rs.getString("END_DATE");
+                stockId = rs.getInt("STOCK_ID");
+                statusId = rs.getInt("STATUS_ID");
+                unitId = rs.getInt("UNIT_ID");
+                photoId = rs.getInt("PHOTO_ID");
+                productName = rs.getString("PRODUCT_NAME");
+                productUnit = rs.getInt("PRODUCT_UNIT");
+                productQty = rs.getInt("PRODUCT_QTY");
+                productDescriptions = rs.getString("PRODUCT_DESCRIPTIONS");
+                productCondition = rs.getString("PRODUCT_CONDITION");
+                productNotes = rs.getString("PRODUCT_NOTES");
+                addDate = rs.getString("ADD_DATE");
+                addBy = rs.getString("ADD_BY");
+                editedDate = rs.getString("EDITED_DATE");
+                editedBy = rs.getString("EDITED_BY");
                 isActive = rs.getString("IS_ACTIVE");
 
-                JSONObject DATA_PRICE = new JSONObject();
+                JSONObject DATA_PRODUCT = new JSONObject();
 
-                DATA_PRICE.put("PRICE_ID", new Integer(priceId));
-                DATA_PRICE.put("PRICE_PER_UNIT", new Integer(pricePerUnit));
-                DATA_PRICE.put("SALES_PRICE", new Integer(salesPrice));
-                DATA_PRICE.put("START_DATE", new String(startDate));
-                DATA_PRICE.put("END_DATE", new String(endDate));
-                DATA_PRICE.put("IS_ACTIVE", new String(isActive));
+                DATA_PRODUCT.put("PRODUCT_ID", new Integer(productId));
+                DATA_PRODUCT.put("CATEGORY_ID", new Integer(categoryId));
+                DATA_PRODUCT.put("SUB_CATEGORY_ID", new Integer(subCategoryId));
+                DATA_PRODUCT.put("PRICE_ID", new Integer(priceId));
+                DATA_PRODUCT.put("STOCK_ID", new Integer(stockId));
+                DATA_PRODUCT.put("STATUS_ID", new Integer(statusId));
+                DATA_PRODUCT.put("UNIT_ID", new Integer(unitId));
+                DATA_PRODUCT.put("PHOTO_ID", new Integer(photoId));
+                DATA_PRODUCT.put("PRODUCT_NAME", new String(productName));
+                DATA_PRODUCT.put("PRODUCT_UNIT", new Integer(productUnit));
+                DATA_PRODUCT.put("PRODUCT_QTY", new Integer(productQty));
+                DATA_PRODUCT.put("PRODUCT_DESCRIPTIONS", new String(productDescriptions));
+                DATA_PRODUCT.put("PRODUCT_CONDITION", new String(productCondition));
+                DATA_PRODUCT.put("PRODUCT_NOTES", new String(productNotes));
+                DATA_PRODUCT.put("ADD_DATE", new String(addDate));
+                DATA_PRODUCT.put("ADD_BY", new String(addBy));
+                DATA_PRODUCT.put("EDITED_DATE", new String(editedDate));
+                DATA_PRODUCT.put("EDITED_BY", new String(editedBy));
+                DATA_PRODUCT.put("IS_ACTIVE", new String(isActive));
 
-                DATA_MASTER_PRICE.put(DATA_PRICE);
+                DATA_MASTER_PRODUCT.put(DATA_PRODUCT);
             }
 
-            JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
+            JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
             jsonResponse += JSONObjectRoot.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,13 +205,13 @@ public class masterProductAO {
         return jsonResponse;
     }
 
-    public String saveMasterPrice(masterPriceMod MPM) throws JSONException {
+    public String saveMasterProduct(masterProductMod MPM) throws JSONException {
         String jsonResponse = "";
 
         Statement stmt = null;
 
         JSONObject JSONObjectRoot = new JSONObject();
-        JSONArray DATA_MASTER_PRICE = new JSONArray();
+        JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         boolean result = false;
         String messageResult = "";
@@ -143,16 +221,29 @@ public class masterProductAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_price VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, MPM.getPricePerUnit());
-            ps.setInt(2, MPM.getSalesPrice());
-            ps.setString(3, MPM.getStartDate());
-            ps.setString(4, MPM.getEndDate());
-            ps.setString(5, MPM.getIsActive());
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_product VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, MPM.getCategoryId());
+            ps.setInt(2, MPM.getSubCategoryId());
+            ps.setInt(3, MPM.getPriceId());
+            ps.setInt(4, MPM.getStockId());
+            ps.setInt(5, MPM.getStatusId());
+            ps.setInt(6, MPM.getUnitId());
+            ps.setInt(7, MPM.getPhotoId());
+            ps.setString(8, MPM.getProductName());
+            ps.setInt(9, MPM.getProductUnit());
+            ps.setInt(10, MPM.getProductQuantity());
+            ps.setString(11, MPM.getProductDescription());
+            ps.setString(12, MPM.getProductCondition());
+            ps.setString(13, MPM.getProductNotes());
+            ps.setString(14, MPM.getAddDate());
+            ps.setString(15, MPM.getAddBy());
+            ps.setString(16, MPM.getEditedDate());
+            ps.setString(17, MPM.getEditedBy());
+            ps.setString(18, MPM.getIsActive());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success add price data.";
+                messageResult = "Success add new product data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -160,25 +251,25 @@ public class masterProductAO {
             messageResult = ""+e.getMessage();
         }
 
-        JSONObject DATA_PRICE = new JSONObject();
+        JSONObject DATA_PRODUCT = new JSONObject();
 
-        DATA_PRICE.put("RESULT", new Boolean(result));
-        DATA_PRICE.put("MESSAGE", new String(messageResult));
-        DATA_MASTER_PRICE.put(DATA_PRICE);
+        DATA_PRODUCT.put("RESULT", new Boolean(result));
+        DATA_PRODUCT.put("MESSAGE", new String(messageResult));
+        DATA_MASTER_PRODUCT.put(DATA_PRODUCT);
 
-        JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
+        JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
         jsonResponse += JSONObjectRoot.toString();
 
         return jsonResponse;
     }
 
-    public String updateMasterPrice(masterPriceMod MPM) throws JSONException{
+    public String updateMasterProduct(masterProductMod MPM) throws JSONException{
         String jsonResponse = "";
 
         Statement stmt = null;
 
         JSONObject JSONObjectRoot = new JSONObject();
-        JSONArray DATA_MASTER_PRICE = new JSONArray();
+        JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         boolean result = false;
         String messageResult = "";
@@ -188,13 +279,26 @@ public class masterProductAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_price SET price_per_unit = ?, sales_price = ?, start_date = ?, end_date = ?, is_active = ? WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, MPM.getPricePerUnit());
-            ps.setInt(2, MPM.getSalesPrice());
-            ps.setString(3, MPM.getStartDate());
-            ps.setString(4, MPM.getEndDate());
-            ps.setString(5, MPM.getIsActive());
-            ps.setInt(6, MPM.getPriceId());
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_product SET WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, MPM.getCategoryId());
+            ps.setInt(2, MPM.getSubCategoryId());
+            ps.setInt(3, MPM.getPriceId());
+            ps.setInt(4, MPM.getStockId());
+            ps.setInt(5, MPM.getStatusId());
+            ps.setInt(6, MPM.getUnitId());
+            ps.setInt(7, MPM.getPhotoId());
+            ps.setString(8, MPM.getProductName());
+            ps.setInt(9, MPM.getProductUnit());
+            ps.setInt(10, MPM.getProductQuantity());
+            ps.setString(11, MPM.getProductDescription());
+            ps.setString(12, MPM.getProductCondition());
+            ps.setString(13, MPM.getProductNotes());
+            ps.setString(14, MPM.getAddDate());
+            ps.setString(15, MPM.getAddBy());
+            ps.setString(16, MPM.getEditedDate());
+            ps.setString(17, MPM.getEditedBy());
+            ps.setString(18, MPM.getIsActive());
+            ps.setInt(19, MPM.getProductId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
@@ -206,25 +310,25 @@ public class masterProductAO {
             messageResult = ""+e.getMessage();
         }
 
-        JSONObject DATA_PRICE = new JSONObject();
+        JSONObject DATA_PRODUCT = new JSONObject();
 
-        DATA_PRICE.put("RESULT", new Boolean(result));
-        DATA_PRICE.put("MESSAGE", new String(messageResult));
-        DATA_MASTER_PRICE.put(DATA_PRICE);
+        DATA_PRODUCT.put("RESULT", new Boolean(result));
+        DATA_PRODUCT.put("MESSAGE", new String(messageResult));
+        DATA_MASTER_PRODUCT.put(DATA_PRODUCT);
 
-        JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
+        JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
         jsonResponse += JSONObjectRoot.toString();
 
         return jsonResponse;
     }
 
-    public String deleteMasterPrice(masterPriceMod MPM) throws JSONException{
+    public String deleteMasterProduct(masterProductMod MPM) throws JSONException{
         String jsonResponse = "";
 
         Statement stmt = null;
 
         JSONObject JSONObjectRoot = new JSONObject();
-        JSONArray DATA_MASTER_PRICE = new JSONArray();
+        JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         boolean result = false;
         String messageResult = "";
@@ -234,12 +338,12 @@ public class masterProductAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_price WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, MPM.getPriceId());
+            PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_product WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, MPM.getProductId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success delete price data.";
+                messageResult = "Success delete product data.";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,13 +351,13 @@ public class masterProductAO {
             messageResult = ""+e.getMessage();
         }
 
-        JSONObject DATA_PRICE = new JSONObject();
+        JSONObject DATA_PRODUCT = new JSONObject();
 
-        DATA_PRICE.put("RESULT", new Boolean(result));
-        DATA_PRICE.put("MESSAGE", new String(messageResult));
-        DATA_MASTER_PRICE.put(DATA_PRICE);
+        DATA_PRODUCT.put("RESULT", new Boolean(result));
+        DATA_PRODUCT.put("MESSAGE", new String(messageResult));
+        DATA_MASTER_PRODUCT.put(DATA_PRODUCT);
 
-        JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
+        JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
         jsonResponse += JSONObjectRoot.toString();
 
         return jsonResponse;
