@@ -12,6 +12,11 @@ public class transactionMod {
     private String transactionDate;
     private String isPreorder;
     private int shippingId;
+    private String addDate;
+    private String addBy;
+    private String editedDate;
+    private String editedBy;
+
 
     public int getTransactionId() {
         return transactionId;
@@ -99,5 +104,37 @@ public class transactionMod {
 
     public void setShippingId(int shippingId) {
         this.shippingId = shippingId;
+    }
+
+    public String getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(String addDate) {
+        this.addDate = addDate;
+    }
+
+    public String getAddBy() {
+        return addBy;
+    }
+
+    public void setAddBy(String addBy) {
+        this.addBy = addBy;
+    }
+
+    public String getEditedDate() {
+        return editedDate;
+    }
+
+    public void setEditedDate(String editedDate) {
+        this.editedDate = editedDate;
+    }
+
+    public String getEditedBy() {
+        return editedBy;
+    }
+
+    public void setEditedBy(String editedBy) {
+        this.editedBy = editedBy;
     }
 }

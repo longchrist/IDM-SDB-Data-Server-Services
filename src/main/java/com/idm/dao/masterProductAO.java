@@ -279,7 +279,26 @@ public class masterProductAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_product SET WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_product SET \n" +
+                    "category_id = ?,\n" +
+                    "sub_category_id = ?,\n" +
+                    "price_id = ?,\n" +
+                    "stock_id = ?,\n" +
+                    "status_id = ?,\n" +
+                    "unit_id = ?,\n" +
+                    "photo_id = ?,\n" +
+                    "product_name = ?,\n" +
+                    "product_unit = ?,\n" +
+                    "product_qty = ?,\n" +
+                    "product_descriptions = ?,\n" +
+                    "product_condition = ?,\n" +
+                    "product_notes = ?,\n" +
+                    "add_date = ?,\n" +
+                    "add_by = ?,\n" +
+                    "edited_date = ?,\n" +
+                    "edited_by = ?,\n" +
+                    "is_active = ?\n" +
+                    "WHERE product_id  = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getCategoryId());
             ps.setInt(2, MPM.getSubCategoryId());
             ps.setInt(3, MPM.getPriceId());
@@ -302,7 +321,7 @@ public class masterProductAO {
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success update price data.";
+                messageResult = "Success update product data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
