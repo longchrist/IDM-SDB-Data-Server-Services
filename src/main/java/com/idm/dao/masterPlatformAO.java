@@ -51,8 +51,8 @@ public class masterPlatformAO {
                 JSONObject DATA_PLATFORM = new JSONObject();
 
                 DATA_PLATFORM.put("PLATFORM_ID", new Integer(platformId));
-                DATA_PLATFORM.put("PACKAGING_TYPE", new String(platformType));
-                DATA_PLATFORM.put("PACKAGING_NAME", new Integer(platformName));
+                DATA_PLATFORM.put("PLATFORM_TYPE", new String(platformType));
+                DATA_PLATFORM.put("PLATFORM_NAME", new String(platformName));
                 DATA_PLATFORM.put("IS_ACTIVE", new String(isActive));
 
                 DATA_MASTER_PLATFORM.put(DATA_PLATFORM);
@@ -202,7 +202,7 @@ public class masterPlatformAO {
         return jsonResponse;
     }
 
-    public String deleteMasterPackaging(masterPlatformMod MPM) throws JSONException{
+    public String deleteMasterPlatform(masterPlatformMod MPM) throws JSONException{
         String jsonResponse = "";
 
         Statement stmt = null;

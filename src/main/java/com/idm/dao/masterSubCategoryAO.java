@@ -67,14 +67,14 @@ public class masterSubCategoryAO {
         return jsonResponse;
     }
 
-    public String getMasterPrice(masterSubCategoryMod MSCM){
+    public String getMasterSubCategory(masterSubCategoryMod MSCM){
         String jsonResponse = "";
 
         Statement stmt = null;
         ResultSet rs;
 
         int subCategoryId = 0;
-        int categoryId = 0;
+        String categoryName = "";
         String subCategory = "";
         String isActive = "";
 
@@ -86,20 +86,20 @@ public class masterSubCategoryAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("SELECT sub_category_id, category_id, sub_category, is_active FROM tb_master_sub_category WHERE sub_category_id = ?");
-            ps.setInt(1, MSCM.getSubCategoryId());
+            PreparedStatement ps = this.conn.prepareStatement("SELECT a.sub_category_id, b.category_name, a.sub_category, a.is_active FROM tb_master_sub_category a LEFT JOIN tb_master_category b ON a.category_id = b.category_id WHERE a.category_id = ?");
+            ps.setInt(1, MSCM.getCategoryId());
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 subCategoryId = rs.getInt("SUB_CATEGORY_ID");
-                categoryId = rs.getInt("CATEGORY_ID");
+                categoryName = rs.getString("CATEGORY_NAME");
                 subCategory = rs.getString("SUB_CATEGORY");
                 isActive = rs.getString("IS_ACTIVE");
 
                 JSONObject DATA_SUB_CATEGORY = new JSONObject();
 
                 DATA_SUB_CATEGORY.put("SUB_CATEGORY_ID", new Integer(subCategoryId));
-                DATA_SUB_CATEGORY.put("CATEGORY_ID", new Integer(categoryId));
+                DATA_SUB_CATEGORY.put("CATEGORY_NAME", new String(categoryName));
                 DATA_SUB_CATEGORY.put("SUB_CATEGORY", new String(subCategory));
                 DATA_SUB_CATEGORY.put("IS_ACTIVE", new String(isActive));
 

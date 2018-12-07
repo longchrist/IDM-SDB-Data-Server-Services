@@ -31,6 +31,7 @@ dependencies {
         compile 'org.springframework:spring-jdbc:3.0.3.RELEASE'
         compile 'mysql:mysql-connector-java'
     compile group: 'org.springframework.boot', name: 'spring-boot-maven-plugin', version: '2.0.5.RELEASE'
+	compile 'commons-codec:commons-codec:1.8'
 }
 
 jar {

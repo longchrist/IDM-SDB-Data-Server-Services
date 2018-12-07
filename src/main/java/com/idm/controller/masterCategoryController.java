@@ -1,6 +1,12 @@
 package com.idm.controller;
 
+import com.idm.connection.Encryptor;
 import com.idm.dao.masterCategoryAO;
+import com.idm.model.responseInfoServices;
+import com.idm.model.masterCategoryMod;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,19 +34,62 @@ public class masterCategoryController {
         return All;
     }
 
-    /*@CrossOrigin
-    @RequestMapping(value="/getspecificactivities", method=RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<responseInfoServices> getSpecificWalkthroughMasterActivitiesResources(@Valid @RequestParam("activities_bu") String bu) {
+    @CrossOrigin
+    @RequestMapping(value="/getcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<responseInfoServices> getMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();
         HttpHeaders headers = new HttpHeaders();
 
-        if(!bu.equals("")) {
+        if(!timestamp.equals("") && !data.equals("")) {
             try {
-                masterWalkthroughActivitiesMod MWAM = new masterWalkthroughActivitiesMod();
-                MWAM.setActivitiesBu(bu); // ini adalah integer, bisa diubah sesuai dengan isi recid nanti di database
+                Encryptor enc = new Encryptor();
+                String dataDecrypt = enc.decrypt(data);
+                JSONObject dataObject = new JSONObject(dataDecrypt);
 
-                masterWalkthroughActivitiesDAO MWADAO = new masterWalkthroughActivitiesDAO();
-                String jsonResponse = MWADAO.getMasterWalkthroughActivities(MWAM);
+                masterCategoryMod MWAM = new masterCategoryMod();
+                MWAM.setCategoryId(dataObject.getInt("category_id"));
+
+                masterCategoryAO MCAO = new masterCategoryAO();
+                String jsonResponse = MCAO.getMasterCategory(MWAM);
+
+                RIS.setJsonResponse(jsonResponse);
+
+                headers.add("Response", jsonResponse);
+                return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            System.out.println("parameters is null");
+            return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(value="/addcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<responseInfoServices> addMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
+
+        responseInfoServices RIS = new responseInfoServices();
+        HttpHeaders headers = new HttpHeaders();
+
+        if(!timestamp.equals("") && !data.equals("")) {
+            try {
+                Encryptor enc = new Encryptor();
+                String dataDecrypt = enc.decrypt(data);
+                JSONObject dataObject = new JSONObject(dataDecrypt);
+
+                masterCategoryMod MWAM = new masterCategoryMod();
+                MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
+                MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
+                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
+                MWAM.setAddBy(dataObject.getString("ADD_BY"));
+                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
+                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
+                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
+
+                masterCategoryAO MCAO = new masterCategoryAO();
+                String jsonResponse = MCAO.saveMasterCategory(MWAM);
 
                 RIS.setJsonResponse(jsonResponse);
 
@@ -57,31 +106,30 @@ public class masterCategoryController {
     }
 
     @CrossOrigin
-    @RequestMapping(value="/addactivities", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<responseInfoServices> addWalkthroughMasterActivitiesResources(
-            @RequestParam("addActivitiesBu") String activitiesBu,
-            @RequestParam("addActivitiesDiv") String activitiesDiv,
-            @RequestParam("addActivitiesName") String activitiesName,
-            @RequestParam("addActivitiesTimeStart") String activitiesTimeStart,
-            @RequestParam("addActivitiesTimeEnd") String activitiesTimeEnd,
-            @RequestParam("addCreatedOpt") String createdOpt) {
+    @RequestMapping(value="/editcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<responseInfoServices> editMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
 
-        // automatically add : created_opt, created_dt, edited_opt, edited_dt, client_address
         responseInfoServices RIS = new responseInfoServices();
         HttpHeaders headers = new HttpHeaders();
 
-        if(!activitiesBu.equals("") && !activitiesDiv.equals("") && !activitiesName.equals("")) {
+        if(!timestamp.equals("") && !data.equals("")) {
             try {
-                masterWalkthroughActivitiesMod MWAM = new masterWalkthroughActivitiesMod();
-                MWAM.setActivitiesBu(activitiesBu);
-                MWAM.setActivitiesDiv(activitiesDiv);
-                MWAM.setActivitiesName(activitiesName);
-                MWAM.setActivitiesTimeStart(activitiesTimeStart);
-                MWAM.setActivitiesTimeEnd(activitiesTimeEnd);
-                MWAM.setCreatedOpt(createdOpt);
+                Encryptor enc = new Encryptor();
+                String dataDecrypt = enc.decrypt(data);
+                JSONObject dataObject = new JSONObject(dataDecrypt);
 
-                masterWalkthroughActivitiesDAO MWADAO = new masterWalkthroughActivitiesDAO();
-                String jsonResponse = MWADAO.saveMasterWalkthroughActivities(MWAM);
+                masterCategoryMod MWAM = new masterCategoryMod();
+                MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
+                MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
+                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
+                MWAM.setAddBy(dataObject.getString("ADD_BY"));
+                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
+                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
+                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                MWAM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
+
+                masterCategoryAO MCAO = new masterCategoryAO();
+                String jsonResponse = MCAO.updateMasterCategory(MWAM);
 
                 RIS.setJsonResponse(jsonResponse);
 
@@ -98,38 +146,29 @@ public class masterCategoryController {
     }
 
     @CrossOrigin
-    @RequestMapping(value="/editactivities", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<responseInfoServices> editWalkthroughMasterActivitiesResources(
-            @RequestParam("editActivitiesTimeStart") String activitiesTimeStart,
-            @RequestParam("editActivitiesTimeEnd") String activitiesTimeEnd,
-            @RequestParam("editEditedOpt") String editedOpt,
-            @RequestParam("editActivitiesBu") String activitiesBu,
-            @RequestParam("editActivitiesDiv") String activitiesDiv,
-            @RequestParam("editActivitiesName") String activitiesName) {
-
-        // automatically add : created_opt, created_dt, edited_opt, edited_dt, client_address
+    @RequestMapping(value="/deletecategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<responseInfoServices> deleteMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();
         HttpHeaders headers = new HttpHeaders();
 
-        if(!activitiesBu.equals("") && !activitiesDiv.equals("") && !activitiesName.equals("")) {
+        if(!timestamp.equals("") && !data.equals("")) {
             try {
-                masterWalkthroughActivitiesMod MWAM = new masterWalkthroughActivitiesMod();
-                MWAM.setActivitiesTimeStart(activitiesTimeStart);
-                MWAM.setActivitiesTimeEnd(activitiesTimeEnd);
-                MWAM.setEditedOpt(editedOpt);
-                MWAM.setActivitiesBu(activitiesBu);
-                MWAM.setActivitiesDiv(activitiesDiv);
-                MWAM.setActivitiesName(activitiesName);
+                Encryptor enc = new Encryptor();
+                String dataDecrypt = enc.decrypt(data);
+                JSONObject dataObject = new JSONObject(dataDecrypt);
 
-                masterWalkthroughActivitiesDAO MWADAO = new masterWalkthroughActivitiesDAO();
-                String jsonResponse = MWADAO.updateMasterWalkthroughActivities(MWAM);
+                masterCategoryMod MWAM = new masterCategoryMod();
+                MWAM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
+
+                masterCategoryAO MCAO = new masterCategoryAO();
+                String jsonResponse = MCAO.deleteMasterCategory(MWAM);
 
                 RIS.setJsonResponse(jsonResponse);
 
                 headers.add("Response", jsonResponse);
                 return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch(Exception ex){
+                ex.printStackTrace();
                 return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
             }
         } else {
@@ -137,38 +176,4 @@ public class masterCategoryController {
             return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
         }
     }
-
-    @CrossOrigin
-    @RequestMapping(value="/deleteactivities", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<responseInfoServices> deleteWalkthroughMasterActivitiesResources(
-            @RequestParam("deleteActivitiesBu") String activitiesBu,
-            @RequestParam("deleteActivitiesDiv") String activitiesDiv,
-            @RequestParam("deleteActivitiesName") String activitiesName) {
-
-        responseInfoServices RIS = new responseInfoServices();
-        HttpHeaders headers = new HttpHeaders();
-
-        if(!activitiesBu.equals("") && !activitiesDiv.equals("") && !activitiesName.equals("")) {
-            try {
-                masterWalkthroughActivitiesMod MWAM = new masterWalkthroughActivitiesMod();
-                MWAM.setActivitiesBu(activitiesBu);
-                MWAM.setActivitiesDiv(activitiesDiv);
-                MWAM.setActivitiesName(activitiesName);
-
-                masterWalkthroughActivitiesDAO MWADAO = new masterWalkthroughActivitiesDAO();
-                String jsonResponse = MWADAO.deleteMasterWalkthroughActivities(MWAM);
-
-                RIS.setJsonResponse(jsonResponse);
-
-                headers.add("Response", jsonResponse);
-                return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
-            }
-        } else {
-            System.out.println("parameters is null");
-            return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
-        }
-    }*/
 }

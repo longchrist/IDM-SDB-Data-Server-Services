@@ -60,14 +60,14 @@ public class masterCustomerAO {
 
                 JSONObject DATA_CUSTOMER = new JSONObject();
 
-                DATA_CUSTOMER.put("CATEGORY_ID", new Integer(customerId));
-                DATA_CUSTOMER.put("CATEGORY_NAME", new String(customerName));
-                DATA_CUSTOMER.put("CATEGORY_DESCRIPTIONS", new String(customerAddress));
-                DATA_CUSTOMER.put("ADD_DATE", new String(customerProvince));
-                DATA_CUSTOMER.put("ADD_BY", new String(customerCity));
-                DATA_CUSTOMER.put("EDITED_DATE", new String(customerZip));
-                DATA_CUSTOMER.put("EDITED_BY", new String(customerCountry));
-                DATA_CUSTOMER.put("EDITED_BY", new String(customerPhone));
+                DATA_CUSTOMER.put("CUSTOMER_ID", new Integer(customerId));
+                DATA_CUSTOMER.put("CUSTOMER_NAME", new String(customerName));
+                DATA_CUSTOMER.put("CUSTOMER_ADDRESS", new String(customerAddress));
+                DATA_CUSTOMER.put("CUSTOMER_PROVINCE", new String(customerProvince));
+                DATA_CUSTOMER.put("CUSTOMER_CITY", new String(customerCity));
+                DATA_CUSTOMER.put("CUSTOMER_ZIP", new String(customerZip));
+                DATA_CUSTOMER.put("CUSTOMER_COUNTRY", new String(customerCountry));
+                DATA_CUSTOMER.put("CUSTOMER_PHONE", new String(customerPhone));
                 DATA_CUSTOMER.put("IS_ACTIVE", new String(isActive));
 
                 DATA_MASTER_CUSTOMER.put(DATA_CUSTOMER);
@@ -123,14 +123,14 @@ public class masterCustomerAO {
 
                 JSONObject DATA_CUSTOMER = new JSONObject();
 
-                DATA_CUSTOMER.put("CATEGORY_ID", new Integer(customerId));
-                DATA_CUSTOMER.put("CATEGORY_NAME", new String(customerName));
-                DATA_CUSTOMER.put("CATEGORY_DESCRIPTIONS", new String(customerAddress));
-                DATA_CUSTOMER.put("ADD_DATE", new String(customerProvince));
-                DATA_CUSTOMER.put("ADD_BY", new String(customerCity));
-                DATA_CUSTOMER.put("EDITED_DATE", new String(customerZip));
-                DATA_CUSTOMER.put("EDITED_BY", new String(customerCountry));
-                DATA_CUSTOMER.put("EDITED_BY", new String(customerPhone));
+                DATA_CUSTOMER.put("CUSTOMER_ID", new Integer(customerId));
+                DATA_CUSTOMER.put("CUSTOMER_NAME", new String(customerName));
+                DATA_CUSTOMER.put("CUSTOMER_ADDRESS", new String(customerAddress));
+                DATA_CUSTOMER.put("CUSTOMER_PROVINCE", new String(customerProvince));
+                DATA_CUSTOMER.put("CUSTOMER_CITY", new String(customerCity));
+                DATA_CUSTOMER.put("CUSTOMER_ZIP", new String(customerZip));
+                DATA_CUSTOMER.put("CUSTOMER_COUNTRY", new String(customerCountry));
+                DATA_CUSTOMER.put("CUSTOMER_PHONE", new String(customerPhone));
                 DATA_CUSTOMER.put("IS_ACTIVE", new String(isActive));
 
                 DATA_MASTER_CUSTOMER.put(DATA_CUSTOMER);
