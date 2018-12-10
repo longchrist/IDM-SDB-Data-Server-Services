@@ -260,10 +260,7 @@ public class masterProductAO {
             ps.setInt(1, MPM.getCategoryId());
             ps.setInt(2, MPM.getSubCategoryId());
             ps.setInt(3, MPM.getPriceId());
-            ps.setInt(4, MPM.getStockId());
-            ps.setInt(5, MPM.getStatusId());
             ps.setInt(6, MPM.getUnitId());
-            ps.setInt(7, MPM.getPhotoId());
             ps.setString(8, MPM.getProductName());
             ps.setInt(9, MPM.getProductUnit());
             ps.setInt(10, MPM.getProductQuantity());
@@ -337,10 +334,7 @@ public class masterProductAO {
             ps.setInt(1, MPM.getCategoryId());
             ps.setInt(2, MPM.getSubCategoryId());
             ps.setInt(3, MPM.getPriceId());
-            ps.setInt(4, MPM.getStockId());
-            ps.setInt(5, MPM.getStatusId());
             ps.setInt(6, MPM.getUnitId());
-            ps.setInt(7, MPM.getPhotoId());
             ps.setString(8, MPM.getProductName());
             ps.setInt(9, MPM.getProductUnit());
             ps.setInt(10, MPM.getProductQuantity());

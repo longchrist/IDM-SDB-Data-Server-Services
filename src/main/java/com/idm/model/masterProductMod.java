@@ -5,10 +5,8 @@ public class masterProductMod {
     private int categoryId;
     private int subCategoryId;
     private int priceId;
-    private int stockId;
-    private int statusId;
+    private int productStockId;
     private int unitId;
-    private int photoId;
     private String productName;
     private int productUnit;
     private int productQuantity;
@@ -53,20 +51,12 @@ public class masterProductMod {
         this.priceId = priceId;
     }
 
-    public int getStockId() {
-        return stockId;
+    public int getProductStockId() {
+        return productStockId;
     }
 
-    public void setStockId(int stockId) {
-        this.stockId = stockId;
-    }
-
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
+    public void setProductStockId(int productStockId) {
+        this.productStockId = productStockId;
     }
 
     public int getUnitId() {
@@ -75,14 +65,6 @@ public class masterProductMod {
 
     public void setUnitId(int unitId) {
         this.unitId = unitId;
-    }
-
-    public int getPhotoId() {
-        return photoId;
-    }
-
-    public void setPhotoId(int photoId) {
-        this.photoId = photoId;
     }
 
     public String getProductName() {
