@@ -248,6 +248,8 @@ public class masterProductAO {
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
+        int returnedId = 0;
+
         boolean result = false;
         String messageResult = "";
 
@@ -264,7 +266,7 @@ public class masterProductAO {
             ps.setString(8, MPM.getProductName());
             ps.setInt(9, MPM.getProductUnit());
             ps.setInt(10, MPM.getProductQuantity());
-            ps.setString(11, MPM.getProductDescription());
+            ps.setString(11, MPM.getProductDescriptions());
             ps.setString(12, MPM.getProductCondition());
             ps.setString(13, MPM.getProductNotes());
             ps.setString(14, MPM.getAddDate());
@@ -274,6 +276,10 @@ public class masterProductAO {
             ps.setString(18, MPM.getIsActive());
 
             if(ps.executeUpdate() > 0){
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()){
+                    returnedId=rs.getInt(1);
+                }
                 result = true;
                 messageResult = "Success add new product data.";
             }
@@ -285,6 +291,7 @@ public class masterProductAO {
 
         JSONObject DATA_PRODUCT = new JSONObject();
 
+        DATA_PRODUCT.put("ID", new Integer(returnedId));
         DATA_PRODUCT.put("RESULT", new Boolean(result));
         DATA_PRODUCT.put("MESSAGE", new String(messageResult));
         DATA_MASTER_PRODUCT.put(DATA_PRODUCT);
@@ -338,7 +345,7 @@ public class masterProductAO {
             ps.setString(8, MPM.getProductName());
             ps.setInt(9, MPM.getProductUnit());
             ps.setInt(10, MPM.getProductQuantity());
-            ps.setString(11, MPM.getProductDescription());
+            ps.setString(11, MPM.getProductDescriptions());
             ps.setString(12, MPM.getProductCondition());
             ps.setString(13, MPM.getProductNotes());
             ps.setString(14, MPM.getAddDate());

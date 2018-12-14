@@ -138,12 +138,14 @@ public class masterPriceAO {
         boolean result = false;
         String messageResult = "";
 
+        String responseGeneratedKeys = "";
+
         try {
             dbConnection DC = new dbConnection();
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_price VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_price (price_per_unit, sales_price, start_date, end_date, is_active) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPricePerUnit());
             ps.setInt(2, MPM.getSalesPrice());
             ps.setString(3, MPM.getStartDate());
@@ -151,6 +153,10 @@ public class masterPriceAO {
             ps.setString(5, MPM.getIsActive());
 
             if(ps.executeUpdate() > 0){
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()){
+                    responseGeneratedKeys = rs.getString(1);
+                }
                 result = true;
                 messageResult = "Success add price data.";
             }
@@ -169,7 +175,7 @@ public class masterPriceAO {
         JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
         jsonResponse += JSONObjectRoot.toString();
 
-        return jsonResponse;
+        return responseGeneratedKeys;
     }
 
     public String updateMasterPrice(masterPriceMod MPM) throws JSONException{

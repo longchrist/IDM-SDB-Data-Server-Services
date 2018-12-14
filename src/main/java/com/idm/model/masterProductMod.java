@@ -5,12 +5,11 @@ public class masterProductMod {
     private int categoryId;
     private int subCategoryId;
     private int priceId;
-    private int productStockId;
     private int unitId;
     private String productName;
     private int productUnit;
     private int productQuantity;
-    private String productDescription;
+    private String productDescriptions;
     private String productCondition;
     private String productNotes;
     private String addDate;
@@ -51,14 +50,6 @@ public class masterProductMod {
         this.priceId = priceId;
     }
 
-    public int getProductStockId() {
-        return productStockId;
-    }
-
-    public void setProductStockId(int productStockId) {
-        this.productStockId = productStockId;
-    }
-
     public int getUnitId() {
         return unitId;
     }
@@ -91,12 +82,12 @@ public class masterProductMod {
         this.productQuantity = productQuantity;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getProductDescriptions() {
+        return productDescriptions;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setProductDescriptions(String productDescriptions) {
+        this.productDescriptions = productDescriptions;
     }
 
     public String getProductCondition() {
