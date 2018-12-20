@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @RestController
@@ -75,24 +77,28 @@ public class masterProductController {
                 masterPriceAO MPAO = new masterPriceAO();
                 String responseAddPricingData = MPAO.saveMasterPrice(masterPriceMod);
 
-                
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
+
+                System.out.println(stringDate);
 
                 masterProductMod MPM = new masterProductMod();
-                MPM.setCategoryId(productGeneralData.getInt("CATEGORY_ID"));
-                MPM.setSubCategoryId(productGeneralData.getInt("SUB_CATEGORY_ID"));
-                MPM.setPriceId(Integer.parseInt(responseAddPricingData));
-                MPM.setUnitId(productGeneralData.getInt("UNIT_ID"));
-                MPM.setProductName(productGeneralData.getString("PRODUCT_NAME"));
-                MPM.setProductUnit(productGeneralData.getInt("PRODUCT_UNIT"));
-                MPM.setProductQuantity(productGeneralData.getInt("PRODUCT_QUANTITY"));
-                MPM.setProductDescriptions(productGeneralData.getString("PRODUCT_DESCRIPTIONS"));
-                MPM.setProductCondition(productGeneralData.getString("PRODUCT_CONDITION"));
-                MPM.setProductNotes(productGeneralData.getString("PRODUCT_NOTES"));
-                MPM.setAddDate();
-                MPM.setAddBy();
-                MPM.setEditedDate("2018-01-01 00:00:00");
-                MPM.setEditedBy("");
-                MPM.setIsActive("Y");
+                    MPM.setCategoryId(productGeneralData.getInt("CATEGORY_ID"));
+                    MPM.setSubCategoryId(productGeneralData.getInt("SUB_CATEGORY_ID"));
+                    MPM.setPriceId(Integer.parseInt(responseAddPricingData));
+                    MPM.setUnitId(productGeneralData.getInt("UNIT_ID"));
+                    MPM.setProductName(productGeneralData.getString("PRODUCT_NAME"));
+                    MPM.setProductUnit(productGeneralData.getInt("PRODUCT_UNIT"));
+                    MPM.setProductQuantity(productGeneralData.getInt("PRODUCT_QUANTITY"));
+                    MPM.setProductDescriptions(productGeneralData.getString("PRODUCT_DESCRIPTIONS"));
+                    MPM.setProductCondition(productGeneralData.getString("PRODUCT_CONDITION"));
+                    MPM.setProductNotes(productGeneralData.getString("PRODUCT_NOTES"));
+                    MPM.setAddDate(stringDate);
+                    MPM.setAddBy("INITIAL UPLOAD");
+                    MPM.setEditedDate("2018-01-01 00:00:00");
+                    MPM.setEditedBy("");
+                    MPM.setIsActive("Y");
 
                /* masterProductAO MPAO = new masterProductAO();
                 String responseAddProduct = MPAO.saveMasterProduct(MPM);
