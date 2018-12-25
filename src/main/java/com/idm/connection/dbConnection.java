@@ -8,6 +8,7 @@ package com.idm.connection;
 //import com.zaxxer.hikari.HikariConfig;
 //import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 
 /**
@@ -42,7 +43,7 @@ public class dbConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             //conn = DriverManager.getConnection("jdbc:mysql:172.25.1.190:home/sarirasa/data/sispos-tesate.fdb?lc_ctype=ISO8859_1","sispos","masterpos");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_indomakers_data","root","");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_indomakers_data","root","root");
 
             //Statement stm = conn.createStatement();
             //ResultSet res= stm.executeQuery("SELECT * FROM WTDP_ACTIVITIES");
@@ -53,6 +54,10 @@ public class dbConnection {
             System.out.println(e);
         }
         return conn;
+    }
+
+    public void closeConnection(){
+        closeConnection();
     }
     
     /*public static void main(String[] args) {

@@ -155,7 +155,7 @@ public class masterCategoryAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_category VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_category (category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCategoryName());
             ps.setString(2, MCM.getCategoryDescription());
             ps.setString(3, MCM.getAddDate());
@@ -202,17 +202,15 @@ public class masterCategoryAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_category SET category_name = ?, category_descriptions = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE brand_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_category SET category_name = ?, category_descriptions = ?, is_active = ? WHERE category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCategoryName());
             ps.setString(2, MCM.getCategoryDescription());
-            ps.setString(3, MCM.getEditedDate());
-            ps.setString(4, MCM.getEditedBy());
-            ps.setString(5, MCM.getIsActive());
-            ps.setInt(6, MCM.getCategoryId());
+            ps.setString(3, MCM.getIsActive());
+            ps.setInt(4, MCM.getCategoryId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success update category.";
+                messageResult = "Success update category data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();

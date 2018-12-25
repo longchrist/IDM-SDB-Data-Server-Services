@@ -26,7 +26,7 @@ public class masterPhotoController {
     private Connection conn = null;
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "C://xampp//htdocs//IDM_CMS//web_resources//product_photo_temp//";
+    private static String UPLOADED_FOLDER = "C://xampp//htdocs//IDM_CMS//web_resources//product_photo//";
 
     @CrossOrigin
     @RequestMapping(value="/uploadphoto", method= RequestMethod.POST)

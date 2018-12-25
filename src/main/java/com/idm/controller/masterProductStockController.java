@@ -1,10 +1,12 @@
 package com.idm.controller;
 
-import com.idm.connection.Encryptor;
 import com.idm.dao.masterCategoryAO;
-import com.idm.dao.masterUnitAO;
+import com.idm.dao.masterProductStockAO;
+import com.idm.dao.masterShippingAO;
 import com.idm.model.masterCategoryMod;
+import com.idm.model.masterProductStockMod;
 import com.idm.model.responseInfoServices;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,38 +20,36 @@ import javax.validation.Valid;
 import java.sql.Connection;
 
 @RestController
-@RequestMapping(value="/unit")
-public class masterUnitController {
+@RequestMapping(value="/productstock")
+public class masterProductStockController {
     @Autowired
     ServletContext context;
     private Connection conn = null;
 
-    @CrossOrigin
-    @RequestMapping(value="/getallunit", method= RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public String getAllUnit() {
+    /*@CrossOrigin
+    @RequestMapping(value="/getallshipping", method= RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public String getAllShipping() {
         String All = "";
-        masterUnitAO MUAO = new masterUnitAO();
-        All = MUAO.getAllMasterUnit();
+        masterShippingAO MSAO = new masterShippingAO();
+        All = MSAO.getAllMasterShipping();
         return All;
-    }
+    }*/
 
     @CrossOrigin
-    @RequestMapping(value="/getunit", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<responseInfoServices> getMasterUnitData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
+    @RequestMapping(value="/loadproductstocktable", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<responseInfoServices> getProductStockData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();
         HttpHeaders headers = new HttpHeaders();
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
 
-                masterCategoryMod MWAM = new masterCategoryMod();
-                MWAM.setCategoryId(dataObject.getInt("category_id"));
+                masterProductStockMod MPSM = new masterProductStockMod();
+                MPSM.setProductId(dataObject.getInt("PRODUCT_ID"));
 
-                masterCategoryAO MCAO = new masterCategoryAO();
-                String jsonResponse = MCAO.getMasterCategory(MWAM);
+                masterProductStockAO MPSAO = new masterProductStockAO();
+                String jsonResponse = MPSAO.loadProductStockTable(MPSM);
 
                 RIS.setJsonResponse(jsonResponse);
 
@@ -65,7 +65,7 @@ public class masterUnitController {
         }
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value="/addcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> addMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
 
@@ -102,10 +102,10 @@ public class masterUnitController {
             System.out.println("parameters is null");
             return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
     @CrossOrigin
-    @RequestMapping(value="/editcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @RequestMapping(value="/editproductstocktable", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> editMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
 
         responseInfoServices RIS = new responseInfoServices();
@@ -113,26 +113,42 @@ public class masterUnitController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
+                JSONObject platformStockData = dataObject.getJSONObject("PRODUCT_STOCK");
 
-                masterCategoryMod MWAM = new masterCategoryMod();
-                MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
-                MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
-                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
-                MWAM.setAddBy(dataObject.getString("ADD_BY"));
-                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
-                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
-                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
-                MWAM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
+                JSONObject productStockId = platformStockData.getJSONObject("productStockId");
+                JSONObject idPlatform = platformStockData.getJSONObject("idPlatform");
+                JSONObject stockPerPlatform = platformStockData.getJSONObject("stockPerPlatform");
+                int ix = platformStockData.getInt("platformLoops");
+                for(int i = 0; i < ix; i++){
+                    int product_stock_id = productStockId.getInt(String.valueOf(i));
+                    int id_platform = idPlatform.getInt(String.valueOf(i));
+                    int stock_per_platform = stockPerPlatform.getInt(String.valueOf(i));
 
-                masterCategoryAO MCAO = new masterCategoryAO();
-                String jsonResponse = MCAO.updateMasterCategory(MWAM);
+                    System.out.println("productstockid : "+product_stock_id+"stock : "+stock_per_platform);
+                    masterProductStockMod MPSM = new masterProductStockMod();
+                    MPSM.setProductStockId(product_stock_id);
+                    MPSM.setPlatformId(id_platform);
+                    MPSM.setStockQty(stock_per_platform);
 
+                    masterProductStockAO MPSAO = new masterProductStockAO();
+                    MPSAO.updateProductStock(MPSM);
+                }
+
+                JSONObject JSONObjectRoot = new JSONObject();
+                JSONArray HEAD_DATA = new JSONArray();
+                JSONObject DATA = new JSONObject();
+
+                DATA.put("RESULT", "success");
+                DATA.put("MESSAGE", "SUCCESS. Updated Stock Data.");
+                HEAD_DATA.put(DATA);
+
+                JSONObjectRoot.put("responseMessage", DATA);
+                String jsonResponse = JSONObjectRoot.toString();
                 RIS.setJsonResponse(jsonResponse);
 
-                headers.add("Response", jsonResponse);
+                headers.add("responseMessage", "Success. Process result with no-errors.");
+
                 return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -144,7 +160,7 @@ public class masterUnitController {
         }
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value="/deletecategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> deleteMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();
@@ -174,5 +190,5 @@ public class masterUnitController {
             System.out.println("parameters is null");
             return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 }

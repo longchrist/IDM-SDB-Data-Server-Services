@@ -198,10 +198,10 @@ public class masterUnitAO {
             stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_unit SET unit = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE unit_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MUM.getUnit());
-            ps.setString(3, MUM.getEditedDate());
-            ps.setString(4, MUM.getEditedBy());
-            ps.setString(5, MUM.getIsActive());
-            ps.setInt(6, MUM.getUnitId());
+            ps.setString(2, MUM.getEditedDate());
+            ps.setString(3, MUM.getEditedBy());
+            ps.setString(4, MUM.getIsActive());
+            ps.setInt(5, MUM.getUnitId());
 
             if(ps.executeUpdate() > 0){
                 result = true;

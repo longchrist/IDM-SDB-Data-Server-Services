@@ -29,9 +29,12 @@ public class masterProductAO {
         int productId = 0;
         int categoryId = 0;
         int subCategoryId = 0;
+
         int priceId = 0; // price relasi 1 : 1
         int pricePerUnit = 0;
         int salesPrice = 0;
+        String priceStartDate = "";
+        String priceEndDate = "";
 
         int unitId = 0;
         String unit = "";
@@ -66,7 +69,7 @@ public class masterProductAO {
                     "LEFT JOIN tb_master_sub_category c ON a.sub_category_id = c.sub_category_id " +
                     "LEFT JOIN tb_master_price d ON a.price_id = d.price_id";*/
 
-            PreparedStatement ps = this.conn.prepareStatement("SELECT a.product_id, a.category_id, b.category_name, a.sub_category_id, c.sub_category, a.price_id, d.price_per_unit, d.sales_price, SUM(f.stock_qty) as product_qty, g.unit_id, g.unit, e.photo_id, e.photo_link, e.photo_descriptions, e.photo_alt, a.product_name, a.product_unit, a.product_descriptions, a.product_condition, a.product_notes, a.add_date, a.add_by, a.edited_date, a.edited_by, a.is_active FROM tb_master_product a " +
+            PreparedStatement ps = this.conn.prepareStatement("SELECT a.product_id, a.category_id, b.category_name, a.sub_category_id, c.sub_category, a.price_id, d.price_per_unit, d.sales_price, d.start_date, d.end_date, SUM(f.stock_qty) as product_qty, g.unit_id, g.unit, e.photo_id, e.photo_link, e.photo_descriptions, e.photo_alt, a.product_name, a.product_unit, a.product_descriptions, a.product_condition, a.product_notes, a.add_date, a.add_by, a.edited_date, a.edited_by, a.is_active FROM tb_master_product a " +
                     "LEFT JOIN tb_master_category b ON a.category_id = b.category_id " +
                     "LEFT JOIN tb_master_sub_category c ON a.sub_category_id = c.sub_category_id " +
                     "LEFT JOIN tb_master_price d ON a.price_id = d.price_id " +
@@ -84,6 +87,8 @@ public class masterProductAO {
                 priceId = rs.getInt("PRICE_ID");
                 pricePerUnit = rs.getInt("PRICE_PER_UNIT");
                 salesPrice = rs.getInt("SALES_PRICE");
+                priceStartDate = rs.getString("START_DATE");
+                priceEndDate = rs.getString("END_DATE");
 
                 unitId = rs.getInt("UNIT_ID");
                 unit = rs.getString("UNIT");
@@ -114,6 +119,8 @@ public class masterProductAO {
                     DATA_PRODUCT.put("PRICE_ID", new Integer(priceId));
                     DATA_PRODUCT.put("PRICE_PER_UNIT", new Integer(pricePerUnit));
                     DATA_PRODUCT.put("SALES_PRICE", new Integer(salesPrice));
+                    DATA_PRODUCT.put("START_DATE", new String(priceStartDate));
+                    DATA_PRODUCT.put("END_DATE", new String(priceEndDate));
 
                     DATA_PRODUCT.put("UNIT_ID", new Integer(unitId));
                     DATA_PRODUCT.put("UNIT", new String(unit));
@@ -253,35 +260,37 @@ public class masterProductAO {
         boolean result = false;
         String messageResult = "";
 
+        String responseGeneratedKeys = "";
+
         try {
             dbConnection DC = new dbConnection();
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_product VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_product (category_id, sub_category_id, price_id, unit_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getCategoryId());
             ps.setInt(2, MPM.getSubCategoryId());
             ps.setInt(3, MPM.getPriceId());
-            ps.setInt(6, MPM.getUnitId());
-            ps.setString(8, MPM.getProductName());
-            ps.setInt(9, MPM.getProductUnit());
-            ps.setInt(10, MPM.getProductQuantity());
-            ps.setString(11, MPM.getProductDescriptions());
-            ps.setString(12, MPM.getProductCondition());
-            ps.setString(13, MPM.getProductNotes());
-            ps.setString(14, MPM.getAddDate());
-            ps.setString(15, MPM.getAddBy());
-            ps.setString(16, MPM.getEditedDate());
-            ps.setString(17, MPM.getEditedBy());
-            ps.setString(18, MPM.getIsActive());
+            ps.setInt(4, MPM.getUnitId());
+            ps.setString(5, MPM.getProductName());
+            ps.setInt(6, MPM.getProductUnit());
+            ps.setInt(7, MPM.getProductQuantity());
+            ps.setString(8, MPM.getProductDescriptions());
+            ps.setString(9, MPM.getProductCondition());
+            ps.setString(10, MPM.getProductNotes());
+            ps.setString(11, MPM.getAddDate());
+            ps.setString(12, MPM.getAddBy());
+            ps.setString(13, MPM.getEditedDate());
+            ps.setString(14, MPM.getEditedBy());
+            ps.setString(15, MPM.getIsActive());
 
             if(ps.executeUpdate() > 0){
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()){
-                    returnedId=rs.getInt(1);
+                    responseGeneratedKeys = rs.getString(1);
                 }
                 result = true;
-                messageResult = "Success add new product data.";
+                messageResult = "Success add price data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -299,7 +308,7 @@ public class masterProductAO {
         JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
         jsonResponse += JSONObjectRoot.toString();
 
-        return jsonResponse;
+        return responseGeneratedKeys;
     }
 
     public String updateMasterProduct(masterProductMod MPM) throws JSONException{

@@ -53,21 +53,6 @@ public class masterSubCategoryController {
 
                 headers.add("Response", jsonResponse);
                 return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
-
-                /*Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
-
-                masterSubCategoryMod MSCM = new masterSubCategoryMod();
-                MSCM.setCategoryId(dataObject.getInt("category_id"));
-
-                masterSubCategoryAO MSCAO = new masterSubCategoryAO();
-                String jsonResponse = MSCAO.getMasterSubCategory(MSCM);
-
-                RIS.setJsonResponse(jsonResponse);
-
-                headers.add("Response", jsonResponse);
-                return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);*/
             } catch(Exception ex){
                 ex.printStackTrace();
                 return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
@@ -87,14 +72,12 @@ public class masterSubCategoryController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
 
                 masterSubCategoryMod MSCM = new masterSubCategoryMod();
                 MSCM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
                 MSCM.setSubCategory(dataObject.getString("SUB_CATEGORY"));
-                MSCM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                MSCM.setIsActive("Y");
 
                 masterSubCategoryAO MSCAO = new masterSubCategoryAO();
                 String jsonResponse = MSCAO.saveMasterSubCategory(MSCM);
@@ -122,9 +105,7 @@ public class masterSubCategoryController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
 
                 masterSubCategoryMod MSCM = new masterSubCategoryMod();
                 MSCM.setCategoryId(dataObject.getInt("CATEGORY_ID"));

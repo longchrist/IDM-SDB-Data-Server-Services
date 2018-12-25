@@ -74,6 +74,7 @@ public class masterSubCategoryAO {
         ResultSet rs;
 
         int subCategoryId = 0;
+        int categoryId = 0;
         String categoryName = "";
         String subCategory = "";
         String isActive = "";
@@ -86,12 +87,13 @@ public class masterSubCategoryAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("SELECT a.sub_category_id, b.category_name, a.sub_category, a.is_active FROM tb_master_sub_category a LEFT JOIN tb_master_category b ON a.category_id = b.category_id WHERE a.category_id = ?");
+            PreparedStatement ps = this.conn.prepareStatement("SELECT a.sub_category_id, b.category_id, b.category_name, a.sub_category, a.is_active FROM tb_master_sub_category a LEFT JOIN tb_master_category b ON a.category_id = b.category_id WHERE a.category_id = ?");
             ps.setInt(1, MSCM.getCategoryId());
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 subCategoryId = rs.getInt("SUB_CATEGORY_ID");
+                categoryId = rs.getInt("CATEGORY_ID");
                 categoryName = rs.getString("CATEGORY_NAME");
                 subCategory = rs.getString("SUB_CATEGORY");
                 isActive = rs.getString("IS_ACTIVE");
@@ -99,6 +101,7 @@ public class masterSubCategoryAO {
                 JSONObject DATA_SUB_CATEGORY = new JSONObject();
 
                 DATA_SUB_CATEGORY.put("SUB_CATEGORY_ID", new Integer(subCategoryId));
+                DATA_SUB_CATEGORY.put("CATEGORY_ID", new Integer(categoryId));
                 DATA_SUB_CATEGORY.put("CATEGORY_NAME", new String(categoryName));
                 DATA_SUB_CATEGORY.put("SUB_CATEGORY", new String(subCategory));
                 DATA_SUB_CATEGORY.put("IS_ACTIVE", new String(isActive));
@@ -131,11 +134,10 @@ public class masterSubCategoryAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_sub_category VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, MSCM.getSubCategoryId());
-            ps.setInt(2, MSCM.getCategoryId());
-            ps.setString(3, MSCM.getSubCategory());
-            ps.setString(4, MSCM.getIsActive());
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_sub_category (category_id, sub_category, is_active) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, MSCM.getCategoryId());
+            ps.setString(2, MSCM.getSubCategory());
+            ps.setString(3, MSCM.getIsActive());
 
             if(ps.executeUpdate() > 0){
                 result = true;
@@ -175,7 +177,7 @@ public class masterSubCategoryAO {
             conn = DC.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_sub_category SET sub_category_id = ?, sub_category = ?, is_active = ? WHERE sub_category_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_sub_category SET category_id = ?, sub_category = ?, is_active = ? WHERE sub_category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getCategoryId());
             ps.setString(2, MSCM.getSubCategory());
             ps.setString(3, MSCM.getIsActive());

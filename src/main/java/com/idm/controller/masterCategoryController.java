@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value="/category")
@@ -75,18 +77,20 @@ public class masterCategoryController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
+
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
 
                 masterCategoryMod MWAM = new masterCategoryMod();
                 MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
                 MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
-                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
-                MWAM.setAddBy(dataObject.getString("ADD_BY"));
-                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
-                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
-                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                MWAM.setAddDate(stringDate);
+                MWAM.setAddBy("INITIAL");
+                MWAM.setEditedDate(stringDate);
+                MWAM.setEditedBy("INITIAL");
+                MWAM.setIsActive("Y");
 
                 masterCategoryAO MCAO = new masterCategoryAO();
                 String jsonResponse = MCAO.saveMasterCategory(MWAM);
@@ -114,17 +118,11 @@ public class masterCategoryController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
 
                 masterCategoryMod MWAM = new masterCategoryMod();
                 MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
                 MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
-                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
-                MWAM.setAddBy(dataObject.getString("ADD_BY"));
-                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
-                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
                 MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
                 MWAM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
 

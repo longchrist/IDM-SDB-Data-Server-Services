@@ -2,10 +2,9 @@ package com.idm.controller;
 
 import com.idm.dao.masterPriceAO;
 import com.idm.dao.masterProductAO;
-import com.idm.model.masterPriceMod;
-import com.idm.model.masterProductMod;
-import com.idm.model.masterProductStockMod;
-import com.idm.model.responseInfoServices;
+import com.idm.dao.masterProductStockAO;
+import com.idm.dao.photoAO;
+import com.idm.model.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,20 +51,15 @@ public class masterProductController {
                 String PRODUCT_GENERAL_DATA = dataObject.toString();
                 JSONObject productGeneralData = dataObject.getJSONObject("PRODUCT_GENERAL_DATA");
                 JSONObject stockProductData = dataObject.getJSONObject("STOCK_PRODUCT_DATA");
+                    JSONObject platformStockData = stockProductData.getJSONObject("PLATFORM_STOCK_DATA");
+                JSONObject unitData = dataObject.getJSONObject("UNIT_DATA");
                 JSONObject pricingData = dataObject.getJSONObject("PRICING_DATA");
                 JSONArray productPhotoData = dataObject.getJSONArray("PRODUCT_PHOTO_DATA");
 
                 System.out.println(productGeneralData);
                 System.out.println(stockProductData);
+                System.out.println(unitData);
                 System.out.println(pricingData);
-
-                for(int ix = 0; ix < productPhotoData.length(); ix++){
-                    JSONObject photoData = productPhotoData.getJSONObject(ix);
-                    int temporaryId = photoData.getInt("temporaryId");
-                    String temporaryPath = photoData.getString("temporaryPath");
-
-                    System.out.println("temporary id = "+temporaryId+" - temporary path : "+temporaryPath);
-                }
 
                 masterPriceMod masterPriceMod = new masterPriceMod();
                     masterPriceMod.setPricePerUnit(pricingData.getInt("PRICE_PER_UNIT"));
@@ -81,41 +75,90 @@ public class masterProductController {
                 Date now = new Date();
                 String stringDate = sdfDate.format(now);
 
-                System.out.println(stringDate);
-
                 masterProductMod MPM = new masterProductMod();
                     MPM.setCategoryId(productGeneralData.getInt("CATEGORY_ID"));
                     MPM.setSubCategoryId(productGeneralData.getInt("SUB_CATEGORY_ID"));
                     MPM.setPriceId(Integer.parseInt(responseAddPricingData));
-                    MPM.setUnitId(productGeneralData.getInt("UNIT_ID"));
+                    MPM.setUnitId(unitData.getInt("UNIT_ID"));
                     MPM.setProductName(productGeneralData.getString("PRODUCT_NAME"));
-                    MPM.setProductUnit(productGeneralData.getInt("PRODUCT_UNIT"));
+                    MPM.setProductUnit(unitData.getInt("UNIT_NUMBER"));
                     MPM.setProductQuantity(productGeneralData.getInt("PRODUCT_QUANTITY"));
                     MPM.setProductDescriptions(productGeneralData.getString("PRODUCT_DESCRIPTIONS"));
                     MPM.setProductCondition(productGeneralData.getString("PRODUCT_CONDITION"));
                     MPM.setProductNotes(productGeneralData.getString("PRODUCT_NOTES"));
                     MPM.setAddDate(stringDate);
-                    MPM.setAddBy("INITIAL UPLOAD");
-                    MPM.setEditedDate("2018-01-01 00:00:00");
-                    MPM.setEditedBy("");
+                    MPM.setAddBy("INITIAL");
+                    MPM.setEditedDate(stringDate);
+                    MPM.setEditedBy("INITIAL");
                     MPM.setIsActive("Y");
 
-               /* masterProductAO MPAO = new masterProductAO();
-                String responseAddProduct = MPAO.saveMasterProduct(MPM);
+                masterProductAO masterProductAO = new masterProductAO();
+                String responseAddProduct = masterProductAO.saveMasterProduct(MPM);
 
-                System.out.println(responseAddProduct);
-                JSONObject objectResponseAddProduct = new JSONObject(responseAddProduct);
+                //System.out.println(responseAddProduct);
 
-                masterProductStockMod MPSM = new masterProductStockMod();
-                MPSM.setProductId();
-                MPSM.setPlatformId(dataObject.getInt("PLATFORM_ID"));
-                MPSM.setStockQty(dataObject.getInt("STOCK_QTY"));
-                MPSM.setWasteQty(dataObject.getInt("WASTE_QTY"));
-                MPSM.setStockDescriptions(dataObject.getString("STOCK_DESCRIPTIONS"));*/
+                JSONObject stockPlatform = platformStockData.getJSONObject("stockPerPlatform");
+                //System.out.println(stockPlatform);
+                JSONObject platformId = platformStockData.getJSONObject("idPlatform");
+                //System.out.println(platformId);
+                int ix = platformStockData.getInt("platformLoops");
+                for(int i = 0; i < ix; i++){
+                    String stock = stockPlatform.getString(String.valueOf(i));
+                    int id = platformId.getInt(String.valueOf(i));
 
-                //RIS.setJsonResponse(jsonResponse);
+                    System.out.println("platformid : "+id+"stock : "+stock);
+                    masterProductStockMod MPSM = new masterProductStockMod();
+                        MPSM.setProductId(Integer.parseInt(responseAddProduct));
+                        MPSM.setPlatformId(id);
+                        MPSM.setStockQty(Integer.parseInt(stock));
+                        MPSM.setWasteQty(0);
+                        MPSM.setStockDescriptions("");
+                        MPSM.setAddDate(stringDate);
+                        MPSM.setAddBy("INITIAL");
+                        MPSM.setEditedDate(stringDate);
+                        MPSM.setEditedBy("INITIAL");
+                        MPSM.setIsActive("Y");
 
-                headers.add("Response", PRODUCT_GENERAL_DATA.toString());
+                        masterProductStockAO MPSAO = new masterProductStockAO();
+                        MPSAO.saveProductStock(MPSM);
+                }
+
+                for(int ixa = 0; ixa < productPhotoData.length(); ixa++){
+                    JSONObject photoData = productPhotoData.getJSONObject(ixa);
+                    int temporaryId = photoData.getInt("temporaryId");
+                    String temporaryPath = photoData.getString("temporaryPath");
+
+                    photoMod PM = new photoMod();
+                        PM.setProductId(Integer.parseInt(responseAddProduct));
+                        PM.setPhotoLink("product_photo/"+temporaryPath);
+                        PM.setPhotoDescriptions("");
+                        PM.setPhotoAlt(String.valueOf(temporaryId));
+                        PM.setAddDate(stringDate);
+                        PM.setAddBy("INITIAL");
+                        PM.setEditedDate(stringDate);
+                        PM.setEditedBy("INITIAL");
+                        PM.setIsActive("Y");
+                        String isPrimary = (ixa == 0) ? "Y" : "N";
+                        PM.setIsPrimary(isPrimary);
+
+                        photoAO PAO = new photoAO();
+                        PAO.savePhoto(PM);
+                }
+
+                JSONObject JSONObjectRoot = new JSONObject();
+                JSONArray HEAD_DATA = new JSONArray();
+                JSONObject DATA = new JSONObject();
+
+                DATA.put("RESULT", "success");
+                DATA.put("MESSAGE", "SUCCESS. Process result with no-errors.");
+                HEAD_DATA.put(DATA);
+
+                JSONObjectRoot.put("responseMessage", DATA);
+                String jsonResponse = JSONObjectRoot.toString();
+                RIS.setJsonResponse(jsonResponse);
+
+                headers.add("responseMessage", "Success. Process result with no-errors.");
+
                 return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
             } catch (Exception e) {
                 e.printStackTrace();
