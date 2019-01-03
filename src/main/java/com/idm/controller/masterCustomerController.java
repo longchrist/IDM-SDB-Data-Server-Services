@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value="/customer")
@@ -32,40 +34,9 @@ public class masterCustomerController {
         return All;
     }
 
-    /*@CrossOrigin
-    @RequestMapping(value="/getcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<responseInfoServices> getMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
-        responseInfoServices RIS = new responseInfoServices();
-        HttpHeaders headers = new HttpHeaders();
-
-        if(!timestamp.equals("") && !data.equals("")) {
-            try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
-
-                masterCategoryMod MWAM = new masterCategoryMod();
-                MWAM.setCategoryId(dataObject.getInt("category_id"));
-
-                masterCategoryAO MCAO = new masterCategoryAO();
-                String jsonResponse = MCAO.getMasterCategory(MWAM);
-
-                RIS.setJsonResponse(jsonResponse);
-
-                headers.add("Response", jsonResponse);
-                return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
-            } catch(Exception ex){
-                ex.printStackTrace();
-                return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
-            }
-        } else {
-            System.out.println("parameters is null");
-            return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
-        }
-    }
 
     @CrossOrigin
-    @RequestMapping(value="/addcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @RequestMapping(value="/addcustomer", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> addMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
 
         responseInfoServices RIS = new responseInfoServices();
@@ -73,21 +44,28 @@ public class masterCustomerController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
 
-                masterCategoryMod MWAM = new masterCategoryMod();
-                MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
-                MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
-                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
-                MWAM.setAddBy(dataObject.getString("ADD_BY"));
-                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
-                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
-                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                JSONObject dataObject = new JSONObject(data);
 
-                masterCategoryAO MCAO = new masterCategoryAO();
-                String jsonResponse = MCAO.saveMasterCategory(MWAM);
+                masterCustomerMod MCM = new masterCustomerMod();
+                MCM.setCustomerName(dataObject.getString("CUSTOMER_NAME"));
+                MCM.setCustomerAddress(dataObject.getString("CUSTOMER_ADDRESS"));
+                MCM.setCustomerProvince(dataObject.getString("CUSTOMER_PROVINCE"));
+                MCM.setCustomerCity(dataObject.getString("CUSTOMER_CITY"));
+                MCM.setCustomerZip(dataObject.getString("CUSTOMER_ZIP"));
+                MCM.setCustomerCountry(dataObject.getString("CUSTOMER_COUNTRY"));
+                MCM.setCustomerPhone(dataObject.getString("CUSTOMER_PHONE"));
+                MCM.setAddDate(stringDate);
+                MCM.setAddBy("INITIAL");
+                MCM.setEditedDate(stringDate);
+                MCM.setEditedBy("INITIAL");
+                MCM.setIsActive("Y");
+
+                masterCustomerAO MCAO = new masterCustomerAO();
+                String jsonResponse = MCAO.saveMasterCustomer(MCM);
 
                 RIS.setJsonResponse(jsonResponse);
 
@@ -104,7 +82,7 @@ public class masterCustomerController {
     }
 
     @CrossOrigin
-    @RequestMapping(value="/editcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @RequestMapping(value="/editcustomer", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> editMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
 
         responseInfoServices RIS = new responseInfoServices();
@@ -112,22 +90,27 @@ public class masterCustomerController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
 
-                masterCategoryMod MWAM = new masterCategoryMod();
-                MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
-                MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
-                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
-                MWAM.setAddBy(dataObject.getString("ADD_BY"));
-                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
-                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
-                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
-                MWAM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
+                JSONObject dataObject = new JSONObject(data);
 
-                masterCategoryAO MCAO = new masterCategoryAO();
-                String jsonResponse = MCAO.updateMasterCategory(MWAM);
+                masterCustomerMod MCM = new masterCustomerMod();
+                MCM.setCustomerId(dataObject.getInt("CUSTOMER_ID"));
+                MCM.setCustomerName(dataObject.getString("CUSTOMER_NAME"));
+                MCM.setCustomerAddress(dataObject.getString("CUSTOMER_ADDRESS"));
+                MCM.setCustomerProvince(dataObject.getString("CUSTOMER_PROVINCE"));
+                MCM.setCustomerCity(dataObject.getString("CUSTOMER_CITY"));
+                MCM.setCustomerZip(dataObject.getString("CUSTOMER_ZIP"));
+                MCM.setCustomerCountry(dataObject.getString("CUSTOMER_COUNTRY"));
+                MCM.setCustomerPhone(dataObject.getString("CUSTOMER_PHONE"));
+                MCM.setEditedDate(stringDate);
+                MCM.setEditedBy("EDITED");
+                MCM.setIsActive("Y");
+
+                masterCustomerAO MCAO = new masterCustomerAO();
+                String jsonResponse = MCAO.updateMasterCustomer(MCM);
 
                 RIS.setJsonResponse(jsonResponse);
 
@@ -143,7 +126,7 @@ public class masterCustomerController {
         }
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value="/deletecategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> deleteMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();

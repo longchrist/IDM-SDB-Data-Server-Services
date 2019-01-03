@@ -9,6 +9,7 @@ public class transactionDetailMod {
     private int productPricePerUnit;
     private int productSalesPerUnit;
     private String isPreorder;
+    private String descriptions;
 
     public int getTransactionDetailId() {
         return transactionDetailId;
@@ -72,5 +73,13 @@ public class transactionDetailMod {
 
     public void setIsPreorder(String isPreorder) {
         this.isPreorder = isPreorder;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
 }

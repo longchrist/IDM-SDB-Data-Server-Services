@@ -2,6 +2,8 @@ package com.idm.dao;
 
 import com.idm.connection.dbConnection;
 import com.idm.model.masterSubCategoryMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,11 +16,8 @@ import java.sql.Statement;
 public class masterSubCategoryAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterSubCategory(){
         String jsonResponse = "";
@@ -35,8 +34,7 @@ public class masterSubCategoryAO {
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT sub_category_id, category_id, sub_category, is_active FROM tb_master_sub_category";
@@ -70,7 +68,6 @@ public class masterSubCategoryAO {
     public String getMasterSubCategory(masterSubCategoryMod MSCM){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int subCategoryId = 0;
@@ -83,10 +80,8 @@ public class masterSubCategoryAO {
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.sub_category_id, b.category_id, b.category_name, a.sub_category, a.is_active FROM tb_master_sub_category a LEFT JOIN tb_master_category b ON a.category_id = b.category_id WHERE a.category_id = ?");
             ps.setInt(1, MSCM.getCategoryId());
             rs = ps.executeQuery();
@@ -121,8 +116,6 @@ public class masterSubCategoryAO {
     public String saveMasterSubCategory(masterSubCategoryMod MSCM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
@@ -130,10 +123,8 @@ public class masterSubCategoryAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_sub_category (category_id, sub_category, is_active) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getCategoryId());
             ps.setString(2, MSCM.getSubCategory());
@@ -164,8 +155,6 @@ public class masterSubCategoryAO {
     public String updateMasterSubCategory(masterSubCategoryMod MSCM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
@@ -173,10 +162,8 @@ public class masterSubCategoryAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_sub_category SET category_id = ?, sub_category = ?, is_active = ? WHERE sub_category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getCategoryId());
             ps.setString(2, MSCM.getSubCategory());
@@ -208,8 +195,6 @@ public class masterSubCategoryAO {
     public String deleteMasterSubCategory(masterSubCategoryMod MSCM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
@@ -217,10 +202,8 @@ public class masterSubCategoryAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_sub_category WHERE sub_category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getSubCategoryId());
 

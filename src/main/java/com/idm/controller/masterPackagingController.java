@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value="/packaging")
@@ -40,9 +42,7 @@ public class masterPackagingController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
 
                 masterPackagingMod MPM = new masterPackagingMod();
                 MPM.setPackagingId(dataObject.getInt("PACKAGING_ID"));
@@ -73,14 +73,20 @@ public class masterPackagingController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
+
+                JSONObject dataObject = new JSONObject(data);
 
                 masterPackagingMod MPM = new masterPackagingMod();
                 MPM.setPackagingType(dataObject.getString("PACKAGING_TYPE"));
                 MPM.setPackagingPrice(dataObject.getInt("PACKAGING_PRICE"));
-                MPM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                MPM.setAddDate(stringDate);
+                MPM.setAddBy("INITIAL");
+                MPM.setEditedDate(stringDate);
+                MPM.setEditedBy("INITIAL");
+                MPM.setIsActive("Y");
 
                 masterPackagingAO MPAO = new masterPackagingAO();
                 String jsonResponse = MPAO.saveMasterPackaging(MPM);
@@ -108,14 +114,18 @@ public class masterPackagingController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
+
+                JSONObject dataObject = new JSONObject(data);
 
                 masterPackagingMod MPM = new masterPackagingMod();
                 MPM.setPackagingType(dataObject.getString("PACKAGING_TYPE"));
                 MPM.setPackagingPrice(dataObject.getInt("PACKAGING_PRICE"));
-                MPM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                MPM.setEditedDate(stringDate);
+                MPM.setEditedBy("EDITED");
+                MPM.setIsActive("Y");
                 MPM.setPackagingId(dataObject.getInt("PACKAGING_ID"));
 
                 masterPackagingAO MPAO = new masterPackagingAO();
@@ -135,7 +145,7 @@ public class masterPackagingController {
         }
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value="/deletepackaging", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> deleteMasterPackagingData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();
@@ -165,5 +175,5 @@ public class masterPackagingController {
             System.out.println("parameters is null");
             return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 }

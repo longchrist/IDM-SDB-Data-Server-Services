@@ -3,6 +3,8 @@ package com.idm.dao;
 import com.idm.connection.dbConnection;
 import com.idm.model.masterCategoryMod;
 import com.idm.model.masterProductStockMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,10 +17,12 @@ import java.sql.Statement;
 public class masterProductStockAO {
     private Connection conn = null;
 
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+
     public String loadProductStockTable(masterProductStockMod MPSM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int productStockId = 0;
@@ -35,10 +39,8 @@ public class masterProductStockAO {
         JSONArray DATA_MASTER_PRODUCT_STOCK = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.product_stock_id, a.product_id, a.platform_id, b.platform_type, b.platform_name, a.stock_qty, a.waste_qty, a.stock_descriptions, a.is_active FROM tb_product_stock a LEFT JOIN tb_master_platform b ON a.platform_id = b.platform_id WHERE a.product_id = ?");
             ps.setInt(1, MPSM.getProductId());
             rs = ps.executeQuery();
@@ -81,8 +83,6 @@ public class masterProductStockAO {
     public String saveProductStock(masterProductStockMod MPSM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRODUCT_STOCK = new JSONArray();
 
@@ -90,10 +90,8 @@ public class masterProductStockAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_product_stock (product_id, platform_id, stock_qty, waste_qty, stock_descriptions, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPSM.getProductId());
             ps.setInt(2, MPSM.getPlatformId());
@@ -131,7 +129,46 @@ public class masterProductStockAO {
     public String updateProductStock(masterProductStockMod MPSM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
+        JSONObject JSONObjectRoot = new JSONObject();
+        JSONArray DATA_MASTER_PRODUCT_STOCK = new JSONArray();
+
+        boolean result = false;
+        String messageResult = "";
+
+        try {
+            conn = hikariDataSource.getConnection();
+
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_product_stock SET stock_qty = ? WHERE product_stock_id = ? AND platform_id = ?", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, MPSM.getStockQty());
+            ps.setInt(2, MPSM.getProductStockId());
+            ps.setInt(3, MPSM.getPlatformId());
+
+            if(ps.executeUpdate() > 0){
+                result = true;
+                messageResult = "Success update product stock data.";
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            result = false;
+            messageResult = ""+e.getMessage();
+        }
+
+        JSONObject DATA_PRODUCT_STOCK = new JSONObject();
+
+        DATA_PRODUCT_STOCK.put("RESULT", new Boolean(result));
+        DATA_PRODUCT_STOCK.put("MESSAGE", new String(messageResult));
+        DATA_MASTER_PRODUCT_STOCK.put(DATA_PRODUCT_STOCK);
+
+        JSONObjectRoot.put("DATA_MASTER_PRODUCT_STOCK", DATA_MASTER_PRODUCT_STOCK);
+        jsonResponse += JSONObjectRoot.toString();
+
+        return jsonResponse;
+    }
+
+    public String updateTransactionProductStockOut(masterProductStockMod MPSM) throws JSONException{
+        String jsonResponse = "";
+
+        ResultSet rs;
 
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRODUCT_STOCK = new JSONArray();
@@ -140,14 +177,31 @@ public class masterProductStockAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_product_stock SET stock_qty = ? WHERE product_stock_id = ? AND platform_id = ?", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, MPSM.getStockQty());
-            ps.setInt(2, MPSM.getProductStockId());
-            ps.setInt(3, MPSM.getPlatformId());
+            int stockQty = MPSM.getStockQty();
+            int productId = MPSM.getProductId();
+            int platformId = MPSM.getPlatformId();
+
+            System.out.println("sq : "+stockQty+" pi1 : "+productId+" pi2 : "+platformId);
+
+            int productStockNow = 0;
+            PreparedStatement ps1 = this.conn.prepareStatement("SELECT stock_qty FROM tb_product_stock WHERE product_id = ? AND platform_id = ?");
+            ps1.setInt(1, productId);
+            ps1.setInt(2, platformId);
+            rs = ps1.executeQuery();
+
+            while (rs.next()) {
+                productStockNow = rs.getInt("STOCK_QTY");
+            }
+
+            productStockNow = productStockNow - stockQty;
+            System.out.println("stock belum berubah : "+productStockNow);
+
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_product_stock SET stock_qty = ? WHERE product_id = ? AND platform_id = ?", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, productStockNow);
+            ps.setInt(2, productId);
+            ps.setInt(3, platformId);
 
             if(ps.executeUpdate() > 0){
                 result = true;

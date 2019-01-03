@@ -2,6 +2,8 @@ package com.idm.dao;
 
 import com.idm.connection.dbConnection;
 import com.idm.model.masterProductMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,16 +16,12 @@ import java.sql.Statement;
 public class masterProductAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterProduct(){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int productId = 0;
@@ -60,14 +58,7 @@ public class masterProductAO {
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
-
-            stmt = conn.createStatement();
-            /*String query = "SELECT a.product_id, a.category_id, b.category_name, a.sub_category_id, c.sub_category, a.price_id, d.price_per_unit, d.sales_price, a.stock_id, a.status_id, g.unit_id, g.unit, a.photo_id, a.product_name, a.product_unit, a.product_qty, a.product_descriptions, a.product_condition, a.product_notes, a.add_date, a.add_by, a.edited_date, a.edited_by, a.is_active FROM tb_master_product a" +
-                    "LEFT JOIN tb_master_category b ON a.category_id = b.category_id " +
-                    "LEFT JOIN tb_master_sub_category c ON a.sub_category_id = c.sub_category_id " +
-                    "LEFT JOIN tb_master_price d ON a.price_id = d.price_id";*/
+            conn = hikariDataSource.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.product_id, a.category_id, b.category_name, a.sub_category_id, c.sub_category, a.price_id, d.price_per_unit, d.sales_price, d.start_date, d.end_date, SUM(f.stock_qty) as product_qty, g.unit_id, g.unit, e.photo_id, e.photo_link, e.photo_descriptions, e.photo_alt, a.product_name, a.product_unit, a.product_descriptions, a.product_condition, a.product_notes, a.add_date, a.add_by, a.edited_date, a.edited_by, a.is_active FROM tb_master_product a " +
                     "LEFT JOIN tb_master_category b ON a.category_id = b.category_id " +
@@ -157,7 +148,6 @@ public class masterProductAO {
     public String getMasterProduct(masterProductMod MPM){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int productId = 0;
@@ -184,10 +174,8 @@ public class masterProductAO {
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT product_id, category_id, sub_category_id, price_id, stock_id, status_id, unit_id, photo_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_product WHERE product_id = ?");
             ps.setInt(1, MPM.getProductId());
             rs = ps.executeQuery();
@@ -250,8 +238,6 @@ public class masterProductAO {
     public String saveMasterProduct(masterProductMod MPM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
@@ -263,10 +249,8 @@ public class masterProductAO {
         String responseGeneratedKeys = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_product (category_id, sub_category_id, price_id, unit_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getCategoryId());
             ps.setInt(2, MPM.getSubCategoryId());
@@ -290,7 +274,7 @@ public class masterProductAO {
                     responseGeneratedKeys = rs.getString(1);
                 }
                 result = true;
-                messageResult = "Success add price data.";
+                messageResult = "Success add product data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -314,8 +298,6 @@ public class masterProductAO {
     public String updateMasterProduct(masterProductMod MPM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
@@ -323,10 +305,8 @@ public class masterProductAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_product SET \n" +
                     "category_id = ?,\n" +
                     "sub_category_id = ?,\n" +
@@ -389,8 +369,6 @@ public class masterProductAO {
     public String deleteMasterProduct(masterProductMod MPM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
@@ -398,10 +376,8 @@ public class masterProductAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_product WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getProductId());
 

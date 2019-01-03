@@ -2,6 +2,8 @@ package com.idm.dao;
 
 import com.idm.connection.dbConnection;
 import com.idm.model.masterPlatformMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,11 +16,8 @@ import java.sql.Statement;
 public class masterPlatformAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterPlatform(){
         String jsonResponse = "";
@@ -35,8 +34,7 @@ public class masterPlatformAO {
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT platform_id, platform_type, platform_name, is_active FROM tb_master_platform";
@@ -70,7 +68,6 @@ public class masterPlatformAO {
     public String getMasterPlatform(masterPlatformMod MPM){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int platformId = 0;
@@ -82,10 +79,8 @@ public class masterPlatformAO {
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT platform_id, platform_type, platform_name, is_active FROM tb_master_platform WHERE platform_id = ?");
             ps.setInt(1, MPM.getPlatformId());
             rs = ps.executeQuery();
@@ -118,8 +113,6 @@ public class masterPlatformAO {
     public String saveMasterPlatform(masterPlatformMod MPM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
@@ -127,18 +120,20 @@ public class masterPlatformAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_platform VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_platform (platform_type, platform_name, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MPM.getPlatformType());
             ps.setString(2, MPM.getPlatformName());
-            ps.setString(3, MPM.getIsActive());
+            ps.setString(3, MPM.getAddDate());
+            ps.setString(4, MPM.getAddBy());
+            ps.setString(5, MPM.getEditedDate());
+            ps.setString(6, MPM.getEditedBy());
+            ps.setString(7, MPM.getIsActive());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success add packaging data.";
+                messageResult = "Success add master platform data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -161,8 +156,6 @@ public class masterPlatformAO {
     public String updateMasterPlatform(masterPlatformMod MPM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
@@ -170,19 +163,19 @@ public class masterPlatformAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_platform SET platform_type = ?, platform_name = ?, is_active = ? WHERE platform_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_platform SET platform_type = ?, platform_name = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE platform_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MPM.getPlatformType());
             ps.setString(2, MPM.getPlatformName());
-            ps.setString(3, MPM.getIsActive());
-            ps.setInt(4, MPM.getPlatformId());
+            ps.setString(3, MPM.getEditedDate());
+            ps.setString(4, MPM.getEditedBy());
+            ps.setString(5, MPM.getIsActive());
+            ps.setInt(6, MPM.getPlatformId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success update platform data.";
+                messageResult = "Success update master platform data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -205,8 +198,6 @@ public class masterPlatformAO {
     public String deleteMasterPlatform(masterPlatformMod MPM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
@@ -214,10 +205,8 @@ public class masterPlatformAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_platform WHERE platform_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPlatformId());
 

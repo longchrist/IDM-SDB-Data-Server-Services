@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java" line="56" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java" line="54" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06a530d0-18fa-4003-9ad5-013f1f3caf8b" name="Default Changelist" comment="" />
@@ -50,40 +50,50 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductStockAO.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/transactionDateRange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2210">
-              <caret line="140" selection-start-line="140" selection-end-line="140" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterProductController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="66" column="103" lean-forward="true" selection-start-line="66" selection-start-column="103" selection-end-line="66" selection-end-column="103" />
+            <state relative-caret-position="102">
+              <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#182#183#0" expanded="true" />
+                <element signature="e#224#225#0" expanded="true" />
+                <element signature="e#294#295#0" expanded="true" />
+                <element signature="e#356#357#0" expanded="true" />
+                <element signature="e#400#401#0" expanded="true" />
+                <element signature="e#440#441#0" expanded="true" />
+                <element signature="e#506#507#0" expanded="true" />
+                <element signature="e#564#565#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterProductStockController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/salesTransactionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1921">
-              <caret line="130" column="46" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+            <state relative-caret-position="2261">
+              <caret line="149" column="66" selection-start-line="149" selection-start-column="45" selection-end-line="149" selection-end-column="66" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterSubCategoryAO.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionDetailAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3332">
-              <caret line="205" column="5" selection-start-line="163" selection-start-column="4" selection-end-line="205" selection-end-column="5" />
+            <state relative-caret-position="272">
+              <caret line="90" column="35" selection-start-line="90" selection-start-column="19" selection-end-line="90" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/connection/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -91,8 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterCategoryController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="100" column="93" selection-start-line="95" selection-start-column="16" selection-end-line="100" selection-end-column="93" />
+            <state relative-caret-position="1092">
+              <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="83" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,20 +110,42 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterCategoryAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="52" column="74" selection-start-line="52" selection-start-column="74" selection-end-line="52" selection-end-column="74" />
+            <state relative-caret-position="170">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="27" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/connection/dbConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1666">
-              <caret line="107" column="37" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
+            <state relative-caret-position="35">
+              <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/hikari.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
+              <folding>
+                <element signature="e#1057#1058#0" expanded="true" />
+                <element signature="e#1119#1120#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,64 +170,64 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/skswt/model/getWalkthroughChecklistControllerMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/skswt/controller/walkthroughMasterLogin.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/skswt/dao/walkthroughController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/skswt/Application.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/skswt/controller/walkthroughDP.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/skswt/dao/masterWalkthroughLoginDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/walkthroughDP.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterCategoryMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterCustomerMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterPackagingMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterPlatformMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterPriceMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterShippingMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterSubCategoryMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/transactionDetailMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/categoryController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/categoryAccessObject.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/transactionMod.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterPackagingController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterPlatformController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/connection/Encryptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/test.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterCustomerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterShippingController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterProductStockMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterProductMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterUnitMod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/Application.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterUnitController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/model/photoMod.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterPhotoController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterSubCategoryController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterCategoryController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/connection/dbConnection.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionDetailAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/photoAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterUnitAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterSubCategoryAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterShippingAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPackagingAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterCustomerAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterCategoryAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductStockAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterProductController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterProductStockController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterSubCategoryAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterUnitAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/photoAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterCustomerMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterCustomerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterPackagingMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterCustomerAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPackagingAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterPackagingController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterShippingMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterShippingAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/masterPlatformMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterShippingController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterPlatformController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/masterTransactionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/transactionDetailMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/transactionMod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionDetailAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/model/transactionDateRange.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/controller/salesTransactionController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductStockAO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/hikari.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/Application.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/connection/Database.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/connection/dbConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/idm/dao/masterCategoryAO.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="2252" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="52" />
+    <option name="y" value="22" />
+    <option name="width" value="1846" />
     <option name="height" value="1756" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -275,6 +307,36 @@
             </path>
             <path>
               <item name="IDM-SDB-Data-Server-Services" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IDM-SDB-Data-Server-Services" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IDM-SDB-Data-Server-Services" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IDM-SDB-Data-Server-Services" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IDM-SDB-Data-Server-Services" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IDM-SDB-Data-Server-Services" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IDM-SDB-Data-Server-Services" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IDM-SDB-Data-Server-Services" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IDM-SDB-Data-Server-Services" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -288,7 +350,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545649684572" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546509956313" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -296,16 +358,16 @@
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\user\Documents\NetBeansProjects\srn-api-server\src\main\resources" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\NetBeansProjects\srn-api-server\src\main" />
       <recent name="C:\Users\user\Documents\NetBeansProjects\srn-api-server\src\main\webapp\META-INF" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.idm.controller" />
       <recent name="com.idm.dao" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\user\Documents\NetBeansProjects\srn-api-server\src\main" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\NetBeansProjects\srn-api-server\src\main\resources" />
       <recent name="C:\Users\user\Documents\NetBeansProjects\srn-api-server\src\main\webapp\META-INF" />
     </key>
   </component>
@@ -359,7 +421,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--stacktrace" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -444,11 +506,19 @@
       <workItem from="1545391591437" duration="10074000" />
       <workItem from="1545556139406" duration="11482000" />
       <workItem from="1545716622228" duration="6357000" />
+      <workItem from="1545789570453" duration="9273000" />
+      <workItem from="1545876598767" duration="12197000" />
+      <workItem from="1546004133174" duration="6203000" />
+      <workItem from="1546152645439" duration="16536000" />
+      <workItem from="1546409811609" duration="2159000" />
+      <workItem from="1546486174532" duration="363000" />
+      <workItem from="1546488437665" duration="2688000" />
+      <workItem from="1546508063168" duration="1741000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44795000" />
+    <option name="totallyTimeSpent" value="95955000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -460,9 +530,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="26" y="11" width="923" height="878" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49719888" visible="true" weight="0.12849584" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49719888" visible="true" weight="0.21965317" />
       <window_info id="Structure" order="1" sideWeight="0.5028011" side_tool="true" weight="0.19111112" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -472,14 +543,14 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4996121" weight="0.16429354" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.824641" weight="0.28741723" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8138728" weight="0.28475937" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.22748268" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.18546638" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.17535903" side_tool="true" visible="true" weight="0.28741723" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.18612717" side_tool="true" visible="true" weight="0.28208557" />
       <window_info anchor="bottom" id="Build" order="10" sideWeight="0.4988363" weight="0.30777657" />
       <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="bottom" id="Spring" order="12" />
@@ -491,7 +562,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Gradle" order="5" visible="true" weight="0.03250189" />
+      <window_info anchor="right" id="Gradle" order="5" visible="true" weight="0.04971098" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Maven Projects" order="8" />
@@ -506,69 +577,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/srn-api-server.iml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/responseInfoServices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterCustomerMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterPackagingMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterShippingMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="21" selection-start-line="3" selection-start-column="4" selection-end-line="6" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/transactionDetailMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/transactionMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="22" selection-start-column="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradlew.bat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterPlatformMod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -580,13 +588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="71" column="88" selection-start-line="71" selection-start-column="88" selection-end-line="71" selection-end-column="88" />
         </state>
       </provider>
     </entry>
@@ -737,82 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/connection/dbConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-          <folding>
-            <element signature="e#2076#2077#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionDetailAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="22" column="65" lean-forward="true" selection-start-line="22" selection-start-column="65" selection-end-line="22" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="38" lean-forward="true" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/photoAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="16" column="63" lean-forward="true" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterUnitAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="203" column="23" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterShippingAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterCustomerAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterSubCategoryController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1443">
-          <caret line="110" column="69" lean-forward="true" selection-start-line="110" selection-start-column="69" selection-end-line="110" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterPhotoController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -823,27 +748,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterPlatformController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="36" column="47" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterPackagingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="29" column="57" lean-forward="true" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterCustomerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-765">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterUnitController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
@@ -851,79 +755,352 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterCategoryAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3280">
-          <caret line="212" column="64" selection-start-line="212" selection-start-column="64" selection-end-line="212" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterShippingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="101" column="33" lean-forward="true" selection-end-line="172" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPackagingAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="28" lean-forward="true" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductStockAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2210">
-          <caret line="140" selection-start-line="140" selection-end-line="140" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterProductStockController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1921">
+        <state relative-caret-position="1677">
           <caret line="130" column="46" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPriceAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="223" column="12" selection-start-line="223" selection-start-column="12" selection-end-line="223" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterSubCategoryAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3332">
-          <caret line="205" column="5" selection-start-line="163" selection-start-column="4" selection-end-line="205" selection-end-column="5" />
+        <state relative-caret-position="157">
+          <caret line="204" column="12" selection-start-line="204" selection-start-column="12" selection-end-line="204" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterCategoryController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterUnitAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="100" column="93" selection-start-line="95" selection-start-column="16" selection-end-line="100" selection-end-column="93" />
+        <state relative-caret-position="119">
+          <caret line="225" selection-start-line="225" selection-end-line="225" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/photoAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="24" column="53" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterCustomerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="94" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterCustomerAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="193" column="53" selection-start-line="193" selection-start-column="53" selection-end-line="193" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterPackagingMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1016#1017#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1130#1131#0" expanded="true" />
+            <element signature="e#1162#1163#0" expanded="true" />
+            <element signature="e#1190#1191#0" expanded="true" />
+            <element signature="e#1232#1233#0" expanded="true" />
+            <element signature="e#1266#1267#0" expanded="true" />
+            <element signature="e#1303#1304#0" expanded="true" />
+            <element signature="e#1336#1337#0" expanded="true" />
+            <element signature="e#1388#1389#0" expanded="true" />
+            <element signature="e#1432#1433#0" expanded="true" />
+            <element signature="e#1467#1468#0" expanded="true" />
+            <element signature="e#1498#1499#0" expanded="true" />
+            <element signature="e#1546#1547#0" expanded="true" />
+            <element signature="e#1586#1587#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPackagingAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="167" column="89" selection-start-line="167" selection-start-column="70" selection-end-line="167" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterPackagingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="116" column="16" selection-start-line="116" selection-start-column="16" selection-end-line="118" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterShippingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1360">
+          <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterPlatformController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="130" column="68" selection-start-line="130" selection-start-column="68" selection-end-line="130" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterPlatformAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="52" column="74" selection-start-line="52" selection-start-column="74" selection-end-line="52" selection-end-column="74" />
+        <state relative-caret-position="2822">
+          <caret line="177" column="55" selection-start-line="177" selection-start-column="55" selection-end-line="177" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterPlatformMod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1666">
-          <caret line="107" column="37" selection-start-line="107" selection-start-column="37" selection-end-line="107" selection-end-column="37" />
+        <state relative-caret-position="170">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="e#996#997#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1072#1073#0" expanded="true" />
+            <element signature="e#1110#1111#0" expanded="true" />
+            <element signature="e#1142#1143#0" expanded="true" />
+            <element signature="e#1170#1171#0" expanded="true" />
+            <element signature="e#1212#1213#0" expanded="true" />
+            <element signature="e#1246#1247#0" expanded="true" />
+            <element signature="e#1283#1284#0" expanded="true" />
+            <element signature="e#1316#1317#0" expanded="true" />
+            <element signature="e#1368#1369#0" expanded="true" />
+            <element signature="e#1412#1413#0" expanded="true" />
+            <element signature="e#1447#1448#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
+            <element signature="e#1526#1527#0" expanded="true" />
+            <element signature="e#1566#1567#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterShippingAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2635">
+          <caret line="166" column="72" selection-start-line="166" selection-start-column="72" selection-end-line="166" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterShippingMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="e#1038#1039#0" expanded="true" />
+            <element signature="e#1068#1069#0" expanded="true" />
+            <element signature="e#1114#1115#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
+            <element signature="e#1184#1185#0" expanded="true" />
+            <element signature="e#1212#1213#0" expanded="true" />
+            <element signature="e#1254#1255#0" expanded="true" />
+            <element signature="e#1288#1289#0" expanded="true" />
+            <element signature="e#1325#1326#0" expanded="true" />
+            <element signature="e#1358#1359#0" expanded="true" />
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1454#1455#0" expanded="true" />
+            <element signature="e#1489#1490#0" expanded="true" />
+            <element signature="e#1520#1521#0" expanded="true" />
+            <element signature="e#1568#1569#0" expanded="true" />
+            <element signature="e#1608#1609#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/masterCustomerMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+          <folding>
+            <element signature="e#2121#2122#0" expanded="true" />
+            <element signature="e#2151#2152#0" expanded="true" />
+            <element signature="e#2197#2198#0" expanded="true" />
+            <element signature="e#2235#2236#0" expanded="true" />
+            <element signature="e#2267#2268#0" expanded="true" />
+            <element signature="e#2295#2296#0" expanded="true" />
+            <element signature="e#2337#2338#0" expanded="true" />
+            <element signature="e#2371#2372#0" expanded="true" />
+            <element signature="e#2408#2409#0" expanded="true" />
+            <element signature="e#2441#2442#0" expanded="true" />
+            <element signature="e#2493#2494#0" expanded="true" />
+            <element signature="e#2537#2538#0" expanded="true" />
+            <element signature="e#2572#2573#0" expanded="true" />
+            <element signature="e#2603#2604#0" expanded="true" />
+            <element signature="e#2651#2652#0" expanded="true" />
+            <element signature="e#2691#2692#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterSubCategoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1602">
+          <caret line="110" column="69" lean-forward="true" selection-start-line="110" selection-start-column="69" selection-end-line="110" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/transactionDetailMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding>
+            <element signature="e#1862#1863#0" expanded="true" />
+            <element signature="e#1897#1898#0" expanded="true" />
+            <element signature="e#1953#1954#0" expanded="true" />
+            <element signature="e#2001#2002#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterProductController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="66" column="103" lean-forward="true" selection-start-line="66" selection-start-column="103" selection-end-line="66" selection-end-column="103" />
+        <state relative-caret-position="1292">
+          <caret line="95" column="62" selection-start-line="95" selection-start-column="62" selection-end-line="95" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/transactionMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-294">
+          <caret line="248" column="8" selection-start-line="248" selection-start-column="8" selection-end-line="248" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="744" column="13" lean-forward="true" selection-start-line="744" selection-start-column="13" selection-end-line="744" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6120">
+          <caret line="372" column="28" selection-start-line="372" selection-start-column="28" selection-end-line="372" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterProductStockAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3196">
+          <caret line="200" column="31" selection-start-line="200" selection-start-column="31" selection-end-line="200" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/model/transactionDateRange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+          <folding>
+            <element signature="e#182#183#0" expanded="true" />
+            <element signature="e#224#225#0" expanded="true" />
+            <element signature="e#294#295#0" expanded="true" />
+            <element signature="e#356#357#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#564#565#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/salesTransactionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2261">
+          <caret line="149" column="66" selection-start-line="149" selection-start-column="45" selection-end-line="149" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="e#1057#1058#0" expanded="true" />
+            <element signature="e#1119#1120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/connection/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-366">
+          <caret line="43" column="20" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/controller/masterCategoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1092">
+          <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="83" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/hikari.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/salesTransactionDetailAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="90" column="35" selection-start-line="90" selection-start-column="19" selection-end-line="90" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/connection/dbConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35">
+          <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/idm/dao/masterCategoryAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="27" selection-end-column="27" />
         </state>
       </provider>
     </entry>

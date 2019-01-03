@@ -2,6 +2,8 @@ package com.idm.dao;
 
 import com.idm.connection.dbConnection;
 import com.idm.model.masterCustomerMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,11 +16,8 @@ import java.sql.Statement;
 public class masterCustomerAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterCustomer(){
         String jsonResponse = "";
@@ -40,8 +39,7 @@ public class masterCustomerAO {
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT customer_id, customer_name, customer_address, customer_province, customer_city, customer_zip, customer_country, customer_phone, is_active FROM tb_master_customer";
@@ -85,7 +83,6 @@ public class masterCustomerAO {
     public String getMasterCategory(masterCustomerMod MCM){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int customerId = 0;
@@ -102,10 +99,8 @@ public class masterCustomerAO {
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT customer_id, customer_name, customer_address, customer_province, customer_city, customer_zip, customer_country, customer_phone, is_active FROM tb_master_customer WHERE customer_id = ?");
             ps.setInt(1, MCM.getCustomerId());
             rs = ps.executeQuery();
@@ -148,8 +143,6 @@ public class masterCustomerAO {
     public String saveMasterCustomer(masterCustomerMod MCM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
 
@@ -157,19 +150,21 @@ public class masterCustomerAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_customer VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_customer (customer_name, customer_address, customer_province, customer_city, customer_zip, customer_country, customer_phone, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCustomerName());
             ps.setString(2, MCM.getCustomerAddress());
             ps.setString(3, MCM.getCustomerProvince());
             ps.setString(4, MCM.getCustomerCity());
             ps.setString(5, MCM.getCustomerZip());
             ps.setString(6, MCM.getCustomerCountry());
-            ps.setString(6, MCM.getCustomerPhone());
-            ps.setString(7, MCM.getIsActive());
+            ps.setString(7, MCM.getCustomerPhone());
+            ps.setString(8, MCM.getAddDate());
+            ps.setString(9, MCM.getAddBy());
+            ps.setString(10, MCM.getEditedDate());
+            ps.setString(11, MCM.getEditedBy());
+            ps.setString(12, MCM.getIsActive());
 
             if(ps.executeUpdate() > 0){
                 result = true;
@@ -196,8 +191,6 @@ public class masterCustomerAO {
     public String updateMasterCustomer(masterCustomerMod MCM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
 
@@ -205,25 +198,27 @@ public class masterCustomerAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_category SET customer_name = ?, customer_address = ?, customer_province = ?, customer_city = ?, customer_zip = ?, customer_country = ?, customer_phone = ?, is_active = ? WHERE customer_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_customer SET customer_name = ?, customer_address = ?, customer_province = ?, customer_city = ?, customer_zip = ?, customer_country = ?, customer_phone = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE customer_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCustomerName());
-            ps.setString(1, MCM.getCustomerAddress());
-            ps.setString(1, MCM.getCustomerProvince());
-            ps.setString(2, MCM.getCustomerCity());
-            ps.setString(3, MCM.getCustomerZip());
-            ps.setString(4, MCM.getCustomerCountry());
-            ps.setString(5, MCM.getCustomerPhone());
-            ps.setString(5, MCM.getIsActive());
-            ps.setInt(6, MCM.getCustomerId());
+            ps.setString(2, MCM.getCustomerAddress());
+            ps.setString(3, MCM.getCustomerProvince());
+            ps.setString(4, MCM.getCustomerCity());
+            ps.setString(5, MCM.getCustomerZip());
+            ps.setString(6, MCM.getCustomerCountry());
+            ps.setString(7, MCM.getCustomerPhone());
+            ps.setString(8, MCM.getEditedDate());
+            ps.setString(9, MCM.getEditedBy());
+            ps.setString(10, MCM.getIsActive());
+            ps.setInt(11, MCM.getCustomerId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
                 messageResult = "Success update customer data.";
             }
+
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -239,13 +234,12 @@ public class masterCustomerAO {
         JSONObjectRoot.put("DATA_MASTER_CUSTOMER", DATA_MASTER_CUSTOMER);
         jsonResponse += JSONObjectRoot.toString();
 
+
         return jsonResponse;
     }
 
     public String deleteMasterCategory(masterCustomerMod MCM) throws JSONException{
         String jsonResponse = "";
-
-        Statement stmt = null;
 
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
@@ -254,10 +248,8 @@ public class masterCustomerAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_customer WHERE customer_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MCM.getCustomerId());
 

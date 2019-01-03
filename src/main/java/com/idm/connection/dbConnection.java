@@ -7,9 +7,13 @@ package com.idm.connection;
 //
 //import com.zaxxer.hikari.HikariConfig;
 //import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,27 +21,19 @@ import java.sql.DriverManager;
  */
 public class dbConnection {
     
-//    private static HikariConfig config = new HikariConfig();
-//    private static HikariDataSource ds;
-//    
-//    public HikariDataSource getHikariConnection(){
-//        config.setJdbcUrl("jdbc:mysql:localhost:3306/db_indomakers_data");
-//        config.setUsername("root");
-//        config.setPassword("");
-//        config.addDataSourceProperty("cachePrepStmts", "true");
-//        config.addDataSourceProperty("prepStmtCacheSize", "250");
-//        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-//
-//        ds = new HikariDataSource(config);
-//        
-//        return ds;
-//    }
-//    
-//    public static Connection getConnection() throws SQLException {
-//        return ds.getConnection();
-//    }
+    private static HikariConfig config = new HikariConfig("/hikari.properties");
+    private static HikariDataSource ds;
+
+    public HikariDataSource getHikariConnection(){
+        ds = new HikariDataSource(config);
+        return ds;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return ds.getConnection();
+    }
     
-    public Connection conn = null;
+/*    public Connection conn = null;
     public Connection getConnection(){
         Connection resultConn = null;
         try {

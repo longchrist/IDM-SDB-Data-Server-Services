@@ -2,6 +2,8 @@ package com.idm.dao;
 
 import com.idm.connection.dbConnection;
 import com.idm.model.transactionDetailMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,16 +16,12 @@ import java.sql.Statement;
 public class salesTransactionDetailAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
-    public String getTransactionDetail(transactionDetailMod TDM){
+    /*public String getTransactionDetail(transactionDetailMod TDM){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int transactionDetailId = 0;
@@ -39,10 +37,8 @@ public class salesTransactionDetailAO {
         JSONArray DATA_TRANSACTION_DETAIL = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT transaction_detail_id, transaction_id, product_id, product_name, product_qty, product_price_per_unit, product_sales_per_unit, is_preorder FROM tb_transaction_detail WHERE transaction_id = ?");
             ps.setInt(1, TDM.getTransactionId());
             rs = ps.executeQuery();
@@ -78,34 +74,36 @@ public class salesTransactionDetailAO {
         }
 
         return jsonResponse;
-    }
+    }*/
 
-    /*public String saveMasterPrice(masterPriceMod MPM) throws JSONException {
+    public String saveTransactionDetail(transactionDetailMod TDM) throws JSONException {
         String jsonResponse = "";
 
         Statement stmt = null;
 
         JSONObject JSONObjectRoot = new JSONObject();
-        JSONArray DATA_MASTER_PRICE = new JSONArray();
+        JSONArray DATA_TRANSACTION_DETAIL = new JSONArray();
 
         boolean result = false;
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
-            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_price VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, MPM.getPricePerUnit());
-            ps.setInt(2, MPM.getSalesPrice());
-            ps.setString(3, MPM.getStartDate());
-            ps.setString(4, MPM.getEndDate());
-            ps.setString(5, MPM.getIsActive());
+            PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_transaction_detail (transaction_id, product_id, product_name, product_qty, product_price_per_unit, product_sales_per_unit, is_preorder, descriptions) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, TDM.getTransactionId());
+            ps.setInt(2, TDM.getProductId());
+            ps.setString(3, TDM.getProductName());
+            ps.setInt(4, TDM.getProductQty());
+            ps.setInt(5, TDM.getProductPricePerUnit());
+            ps.setInt(6, TDM.getProductSalesPerUnit());
+            ps.setString(7, TDM.getIsPreorder());
+            ps.setString(8, TDM.getDescriptions());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success add price data.";
+                messageResult = "Success add transaction detail data.";
             }
         } catch (Exception e) {
             //e.printStackTrace();
@@ -113,19 +111,19 @@ public class salesTransactionDetailAO {
             messageResult = ""+e.getMessage();
         }
 
-        JSONObject DATA_PRICE = new JSONObject();
+        JSONObject TRANSACTION_DETAIL = new JSONObject();
 
-        DATA_PRICE.put("RESULT", new Boolean(result));
-        DATA_PRICE.put("MESSAGE", new String(messageResult));
-        DATA_MASTER_PRICE.put(DATA_PRICE);
+        TRANSACTION_DETAIL.put("RESULT", new Boolean(result));
+        TRANSACTION_DETAIL.put("MESSAGE", new String(messageResult));
+        DATA_TRANSACTION_DETAIL.put(TRANSACTION_DETAIL);
 
-        JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
+        JSONObjectRoot.put("DATA_TRANSACTION_DETAIL", DATA_TRANSACTION_DETAIL);
         jsonResponse += JSONObjectRoot.toString();
 
         return jsonResponse;
     }
 
-    public String updateMasterPrice(masterPriceMod MPM) throws JSONException{
+    /*public String updateMasterPrice(masterPriceMod MPM) throws JSONException{
         String jsonResponse = "";
 
         Statement stmt = null;

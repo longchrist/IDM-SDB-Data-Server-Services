@@ -7,7 +7,7 @@ public class transactionMod {
     private String invoice;
     private int totalTransaction;
     private int shippingPrice;
-    private int packagingId;
+    private String packagingId;
     private int packagingPrice;
     private String transactionDate;
     private String isPreorder;
@@ -66,11 +66,11 @@ public class transactionMod {
         this.shippingPrice = shippingPrice;
     }
 
-    public int getPackagingId() {
+    public String getPackagingId() {
         return packagingId;
     }
 
-    public void setPackagingId(int packagingId) {
+    public void setPackagingId(String packagingId) {
         this.packagingId = packagingId;
     }
 

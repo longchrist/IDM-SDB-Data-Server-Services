@@ -3,6 +3,8 @@ package com.idm.dao;
 import com.idm.connection.dbConnection;
 import com.idm.model.masterCategoryMod;
 import com.idm.model.masterUnitMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,11 +17,8 @@ import java.sql.Statement;
 public class masterUnitAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterUnit(){
         String jsonResponse = "";
@@ -39,8 +38,7 @@ public class masterUnitAO {
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT unit_id, unit, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_unit";
@@ -88,17 +86,14 @@ public class masterUnitAO {
         String editedBy = "";
         String isActive = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT unit_id, unit, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_unit WHERE unit_id = ?");
             ps.setInt(1, MUM.getUnitId());
             rs = ps.executeQuery();
@@ -137,8 +132,6 @@ public class masterUnitAO {
     public String saveMasterUnit(masterUnitMod MUM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
@@ -146,10 +139,8 @@ public class masterUnitAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_unit VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MUM.getUnit());
             ps.setString(2, MUM.getAddDate());
@@ -183,8 +174,6 @@ public class masterUnitAO {
     public String updateMasterUnit(masterUnitMod MUM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
@@ -192,10 +181,8 @@ public class masterUnitAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_unit SET unit = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE unit_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MUM.getUnit());
             ps.setString(2, MUM.getEditedDate());
@@ -228,8 +215,6 @@ public class masterUnitAO {
     public String deleteMasterUnit(masterUnitMod MUM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
@@ -237,10 +222,8 @@ public class masterUnitAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_unit WHERE unit_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MUM.getUnitId());
 

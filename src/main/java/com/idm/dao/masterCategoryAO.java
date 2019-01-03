@@ -1,6 +1,8 @@
 package com.idm.dao;
 
 import com.idm.model.masterCategoryMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,11 +16,8 @@ import com.idm.connection.dbConnection;
 public class masterCategoryAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterCategory(){
         String jsonResponse = "";
@@ -39,8 +38,7 @@ public class masterCategoryAO {
         JSONArray DATA_MASTER_CATEGORY = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT category_id, category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_category";
@@ -98,10 +96,8 @@ public class masterCategoryAO {
         JSONArray DATA_MASTER_CATEGORY = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT category_id, category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_category WHERE category_id = ?");
             ps.setInt(1, MCM.getCategoryId());
             rs = ps.executeQuery();
@@ -151,10 +147,8 @@ public class masterCategoryAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_category (category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCategoryName());
             ps.setString(2, MCM.getCategoryDescription());
@@ -198,10 +192,8 @@ public class masterCategoryAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_category SET category_name = ?, category_descriptions = ?, is_active = ? WHERE category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCategoryName());
             ps.setString(2, MCM.getCategoryDescription());
@@ -242,10 +234,8 @@ public class masterCategoryAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_category WHERE category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MCM.getCategoryId());
 

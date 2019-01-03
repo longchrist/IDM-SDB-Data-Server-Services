@@ -3,6 +3,8 @@ package com.idm.dao;
 import com.idm.connection.dbConnection;
 import com.idm.model.masterProductStockMod;
 import com.idm.model.photoMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,10 +16,11 @@ import java.sql.Statement;
 public class photoAO {
     private Connection conn = null;
 
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+
     public String savePhoto(photoMod PM) throws JSONException {
         String jsonResponse = "";
-
-        Statement stmt = null;
 
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_PRODUCT_PHOTO = new JSONArray();
@@ -26,10 +29,8 @@ public class photoAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_photo (product_id, photo_link, photo_descriptions, photo_alt, add_date, add_by, edited_date, edited_by, is_active, is_primary) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, PM.getProductId());
             ps.setString(2, PM.getPhotoLink());

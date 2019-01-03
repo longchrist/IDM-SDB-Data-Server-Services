@@ -2,6 +2,8 @@ package com.idm.dao;
 
 import com.idm.connection.dbConnection;
 import com.idm.model.masterPriceMod;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,11 +16,8 @@ import java.sql.Statement;
 public class masterPriceAO {
     private Connection conn = null;
 
-//    HikariDataSource hikariDataSource;
-//    HikariConfig hikariConfig;
-//
-//    HikariConfig config = new HikariConfig("hikari.properties");
-//    HikariDataSource ds = new HikariDataSource(config);
+    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
+    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
 
     public String getAllMasterPrice(){
         String jsonResponse = "";
@@ -37,8 +36,7 @@ public class masterPriceAO {
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT price_id, price_per_unit, sales_price, start_date, end_date, is_active FROM tb_master_price";
@@ -76,7 +74,6 @@ public class masterPriceAO {
     public String getMasterPrice(masterPriceMod MPM){
         String jsonResponse = "";
 
-        Statement stmt = null;
         ResultSet rs;
 
         int priceId = 0;
@@ -90,10 +87,8 @@ public class masterPriceAO {
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("SELECT price_id, price_per_unit, sales_price, start_date, end_date, is_active FROM tb_master_price WHERE price_id = ?");
             ps.setInt(1, MPM.getPriceId());
             rs = ps.executeQuery();
@@ -130,8 +125,6 @@ public class masterPriceAO {
     public String saveMasterPrice(masterPriceMod MPM) throws JSONException {
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
@@ -141,10 +134,8 @@ public class masterPriceAO {
         String responseGeneratedKeys = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_price (price_per_unit, sales_price, start_date, end_date, is_active) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPricePerUnit());
             ps.setInt(2, MPM.getSalesPrice());
@@ -181,8 +172,6 @@ public class masterPriceAO {
     public String updateMasterPrice(masterPriceMod MPM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
@@ -190,10 +179,8 @@ public class masterPriceAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_price SET price_per_unit = ?, sales_price = ?, start_date = ?, end_date = ?, is_active = ? WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPricePerUnit());
             ps.setInt(2, MPM.getSalesPrice());
@@ -227,8 +214,6 @@ public class masterPriceAO {
     public String deleteMasterPrice(masterPriceMod MPM) throws JSONException{
         String jsonResponse = "";
 
-        Statement stmt = null;
-
         JSONObject JSONObjectRoot = new JSONObject();
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
@@ -236,10 +221,8 @@ public class masterPriceAO {
         String messageResult = "";
 
         try {
-            dbConnection DC = new dbConnection();
-            conn = DC.getConnection();
+            conn = hikariDataSource.getConnection();
 
-            stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_price WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPriceId());
 

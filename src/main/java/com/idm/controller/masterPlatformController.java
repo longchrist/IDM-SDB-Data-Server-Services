@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value="/platform")
@@ -73,13 +75,19 @@ public class masterPlatformController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
+
+                JSONObject dataObject = new JSONObject(data);
 
                 masterPlatformMod MPM = new masterPlatformMod();
                 MPM.setPlatformType(dataObject.getString("PLATFORM_TYPE"));
                 MPM.setPlatformName(dataObject.getString("PLATFORM_NAME"));
+                MPM.setAddDate(stringDate);
+                MPM.setAddBy("INITIAL");
+                MPM.setEditedDate(stringDate);
+                MPM.setEditedBy("INITIAL");
                 MPM.setIsActive(dataObject.getString("IS_ACTIVE"));
 
                 masterPlatformAO MPAO = new masterPlatformAO();
@@ -108,13 +116,17 @@ public class masterPlatformController {
 
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+                Date now = new Date();
+                String stringDate = sdfDate.format(now);
+
+                JSONObject dataObject = new JSONObject(data);
 
                 masterPlatformMod MPM = new masterPlatformMod();
                 MPM.setPlatformType(dataObject.getString("PLATFORM_TYPE"));
                 MPM.setPlatformName(dataObject.getString("PLATFORM_NAME"));
+                MPM.setEditedDate(stringDate);
+                MPM.setEditedBy("EDITED");
                 MPM.setIsActive(dataObject.getString("IS_ACTIVE"));
                 MPM.setPlatformId(dataObject.getInt("PLATFORM_ID"));
 
