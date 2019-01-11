@@ -17,9 +17,6 @@ import java.sql.Statement;
 public class masterProductStockAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String loadProductStockTable(masterProductStockMod MPSM) throws JSONException {
         String jsonResponse = "";
 
@@ -39,7 +36,7 @@ public class masterProductStockAO {
         JSONArray DATA_MASTER_PRODUCT_STOCK = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.product_stock_id, a.product_id, a.platform_id, b.platform_type, b.platform_name, a.stock_qty, a.waste_qty, a.stock_descriptions, a.is_active FROM tb_product_stock a LEFT JOIN tb_master_platform b ON a.platform_id = b.platform_id WHERE a.product_id = ?");
             ps.setInt(1, MPSM.getProductId());
@@ -73,8 +70,13 @@ public class masterProductStockAO {
 
             JSONObjectRoot.put("DATA_MASTER_PRODUCT_STOCK", DATA_MASTER_PRODUCT_STOCK);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -90,7 +92,7 @@ public class masterProductStockAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_product_stock (product_id, platform_id, stock_qty, waste_qty, stock_descriptions, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPSM.getProductId());
@@ -108,10 +110,15 @@ public class masterProductStockAO {
                 result = true;
                 messageResult = "Success add product stock data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_PRODUCT_STOCK = new JSONObject();
@@ -136,7 +143,7 @@ public class masterProductStockAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_product_stock SET stock_qty = ? WHERE product_stock_id = ? AND platform_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPSM.getStockQty());
@@ -147,10 +154,15 @@ public class masterProductStockAO {
                 result = true;
                 messageResult = "Success update product stock data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_PRODUCT_STOCK = new JSONObject();
@@ -177,7 +189,7 @@ public class masterProductStockAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             int stockQty = MPSM.getStockQty();
             int productId = MPSM.getProductId();
@@ -207,10 +219,16 @@ public class masterProductStockAO {
                 result = true;
                 messageResult = "Success update product stock data.";
             }
+
+            ps.close();
+            ps1.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_PRODUCT_STOCK = new JSONObject();

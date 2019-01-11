@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterProductAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterProduct(){
         String jsonResponse = "";
 
@@ -58,7 +55,7 @@ public class masterProductAO {
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.product_id, a.category_id, b.category_name, a.sub_category_id, c.sub_category, a.price_id, d.price_per_unit, d.sales_price, d.start_date, d.end_date, SUM(f.stock_qty) as product_qty, g.unit_id, g.unit, e.photo_id, e.photo_link, e.photo_descriptions, e.photo_alt, a.product_name, a.product_unit, a.product_descriptions, a.product_condition, a.product_notes, a.add_date, a.add_by, a.edited_date, a.edited_by, a.is_active FROM tb_master_product a " +
                     "LEFT JOIN tb_master_category b ON a.category_id = b.category_id " +
@@ -138,8 +135,13 @@ public class masterProductAO {
 
             JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -174,7 +176,7 @@ public class masterProductAO {
         JSONArray DATA_MASTER_PRODUCT = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT product_id, category_id, sub_category_id, price_id, stock_id, status_id, unit_id, photo_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_product WHERE product_id = ?");
             ps.setInt(1, MPM.getProductId());
@@ -228,8 +230,13 @@ public class masterProductAO {
 
             JSONObjectRoot.put("DATA_MASTER_PRODUCT", DATA_MASTER_PRODUCT);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -249,7 +256,7 @@ public class masterProductAO {
         String responseGeneratedKeys = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_product (category_id, sub_category_id, price_id, unit_id, product_name, product_unit, product_qty, product_descriptions, product_condition, product_notes, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getCategoryId());
@@ -276,10 +283,15 @@ public class masterProductAO {
                 result = true;
                 messageResult = "Success add product data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_PRODUCT = new JSONObject();
@@ -305,53 +317,47 @@ public class masterProductAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_product SET \n" +
                     "category_id = ?,\n" +
                     "sub_category_id = ?,\n" +
-                    "price_id = ?,\n" +
-                    "stock_id = ?,\n" +
-                    "status_id = ?,\n" +
                     "unit_id = ?,\n" +
-                    "photo_id = ?,\n" +
                     "product_name = ?,\n" +
                     "product_unit = ?,\n" +
-                    "product_qty = ?,\n" +
                     "product_descriptions = ?,\n" +
                     "product_condition = ?,\n" +
                     "product_notes = ?,\n" +
-                    "add_date = ?,\n" +
-                    "add_by = ?,\n" +
                     "edited_date = ?,\n" +
                     "edited_by = ?,\n" +
                     "is_active = ?\n" +
                     "WHERE product_id  = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getCategoryId());
             ps.setInt(2, MPM.getSubCategoryId());
-            ps.setInt(3, MPM.getPriceId());
-            ps.setInt(6, MPM.getUnitId());
-            ps.setString(8, MPM.getProductName());
-            ps.setInt(9, MPM.getProductUnit());
-            ps.setInt(10, MPM.getProductQuantity());
-            ps.setString(11, MPM.getProductDescriptions());
-            ps.setString(12, MPM.getProductCondition());
-            ps.setString(13, MPM.getProductNotes());
-            ps.setString(14, MPM.getAddDate());
-            ps.setString(15, MPM.getAddBy());
-            ps.setString(16, MPM.getEditedDate());
-            ps.setString(17, MPM.getEditedBy());
-            ps.setString(18, MPM.getIsActive());
-            ps.setInt(19, MPM.getProductId());
+            ps.setInt(3, MPM.getUnitId());
+            ps.setString(4, MPM.getProductName());
+            ps.setInt(5, MPM.getProductUnit());
+            ps.setString(6, MPM.getProductDescriptions());
+            ps.setString(7, MPM.getProductCondition());
+            ps.setString(8, MPM.getProductNotes());
+            ps.setString(9, MPM.getEditedDate());
+            ps.setString(10, MPM.getEditedBy());
+            ps.setString(11, MPM.getIsActive());
+            ps.setInt(12, MPM.getProductId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
-                messageResult = "Success update product data.";
+                messageResult = "Success update product general informations data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_PRODUCT = new JSONObject();
@@ -376,7 +382,7 @@ public class masterProductAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_product WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getProductId());
@@ -385,10 +391,15 @@ public class masterProductAO {
                 result = true;
                 messageResult = "Success delete product data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_PRODUCT = new JSONObject();

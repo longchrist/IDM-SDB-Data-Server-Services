@@ -17,9 +17,6 @@ import java.sql.Statement;
 public class masterUnitAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterUnit(){
         String jsonResponse = "";
 
@@ -38,7 +35,7 @@ public class masterUnitAO {
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT unit_id, unit, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_unit";
@@ -68,8 +65,13 @@ public class masterUnitAO {
 
             JSONObjectRoot.put("DATA_MASTER_UNIT", DATA_MASTER_UNIT);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -92,7 +94,7 @@ public class masterUnitAO {
         JSONArray DATA_MASTER_UNIT = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT unit_id, unit, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_unit WHERE unit_id = ?");
             ps.setInt(1, MUM.getUnitId());
@@ -122,8 +124,13 @@ public class masterUnitAO {
 
             JSONObjectRoot.put("DATA_MASTER_UNIT", DATA_MASTER_UNIT);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -139,7 +146,7 @@ public class masterUnitAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_unit VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MUM.getUnit());
@@ -153,10 +160,15 @@ public class masterUnitAO {
                 result = true;
                 messageResult = "Success add master unit data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_UNIT = new JSONObject();
@@ -181,7 +193,7 @@ public class masterUnitAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_unit SET unit = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE unit_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MUM.getUnit());
@@ -194,10 +206,15 @@ public class masterUnitAO {
                 result = true;
                 messageResult = "Success update unit data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_UNIT = new JSONObject();
@@ -222,7 +239,7 @@ public class masterUnitAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_unit WHERE unit_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MUM.getUnitId());
@@ -231,10 +248,15 @@ public class masterUnitAO {
                 result = true;
                 messageResult = "Success delete unit data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_UNIT = new JSONObject();

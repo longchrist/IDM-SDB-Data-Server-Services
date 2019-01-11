@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterPlatformAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterPlatform(){
         String jsonResponse = "";
 
@@ -34,7 +31,7 @@ public class masterPlatformAO {
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT platform_id, platform_type, platform_name, is_active FROM tb_master_platform";
@@ -58,6 +55,9 @@ public class masterPlatformAO {
 
             JSONObjectRoot.put("DATA_MASTER_PLATFORM", DATA_MASTER_PLATFORM);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class masterPlatformAO {
         JSONArray DATA_MASTER_PLATFORM = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT platform_id, platform_type, platform_name, is_active FROM tb_master_platform WHERE platform_id = ?");
             ps.setInt(1, MPM.getPlatformId());
@@ -103,6 +103,9 @@ public class masterPlatformAO {
 
             JSONObjectRoot.put("DATA_MASTER_PLATFORM", DATA_MASTER_PLATFORM);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +123,7 @@ public class masterPlatformAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_platform (platform_type, platform_name, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MPM.getPlatformType());
@@ -135,6 +138,9 @@ public class masterPlatformAO {
                 result = true;
                 messageResult = "Success add master platform data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -163,7 +169,7 @@ public class masterPlatformAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_platform SET platform_type = ?, platform_name = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE platform_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MPM.getPlatformType());
@@ -177,6 +183,9 @@ public class masterPlatformAO {
                 result = true;
                 messageResult = "Success update master platform data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -205,7 +214,7 @@ public class masterPlatformAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_platform WHERE platform_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPlatformId());
@@ -214,6 +223,9 @@ public class masterPlatformAO {
                 result = true;
                 messageResult = "Success delete platform data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

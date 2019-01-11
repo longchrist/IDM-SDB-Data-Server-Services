@@ -161,8 +161,19 @@ public class masterProductController {
 
                 return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
             } catch (Exception e) {
-                e.printStackTrace();
-                return new ResponseEntity<responseInfoServices>(HttpStatus.BAD_REQUEST);
+                JSONObject JSONObjectRoot = new JSONObject();
+                JSONArray HEAD_DATA = new JSONArray();
+                JSONObject DATA = new JSONObject();
+
+                DATA.put("RESULT", "error");
+                DATA.put("MESSAGE", e.getMessage());
+                HEAD_DATA.put(DATA);
+
+                JSONObjectRoot.put("responseMessage", DATA);
+                String jsonResponse = JSONObjectRoot.toString();
+                RIS.setJsonResponse(jsonResponse);
+
+                return new ResponseEntity<responseInfoServices>(RIS, headers, HttpStatus.OK);
             }
         } else {
             System.out.println("parameters is null");
@@ -170,31 +181,37 @@ public class masterProductController {
         }
     }
 
-    /*@CrossOrigin
-    @RequestMapping(value="/editcategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @CrossOrigin
+    @RequestMapping(value="/editproductinformations", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> editMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
 
         responseInfoServices RIS = new responseInfoServices();
         HttpHeaders headers = new HttpHeaders();
 
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        Date now = new Date();
+        String stringDate = sdfDate.format(now);
+
         if(!timestamp.equals("") && !data.equals("")) {
             try {
-                Encryptor enc = new Encryptor();
-                String dataDecrypt = enc.decrypt(data);
-                JSONObject dataObject = new JSONObject(dataDecrypt);
+                JSONObject dataObject = new JSONObject(data);
 
-                masterCategoryMod MWAM = new masterCategoryMod();
-                MWAM.setCategoryName(dataObject.getString("CATEGORY_NAME"));
-                MWAM.setCategoryDescription(dataObject.getString("CATEGORY_DESCRIPTIONS"));
-                MWAM.setAddDate(dataObject.getString("ADD_DATE"));
-                MWAM.setAddBy(dataObject.getString("ADD_BY"));
-                MWAM.setEditedDate(dataObject.getString("EDITED_DATE"));
-                MWAM.setEditedBy(dataObject.getString("EDITED_BY"));
-                MWAM.setIsActive(dataObject.getString("IS_ACTIVE"));
-                MWAM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
+                masterProductMod MPM = new masterProductMod();
+                MPM.setCategoryId(dataObject.getInt("CATEGORY_ID"));
+                MPM.setSubCategoryId(dataObject.getInt("SUB_CATEGORY_ID"));
+                MPM.setProductName(dataObject.getString("PRODUCT_NAME"));
+                MPM.setProductDescriptions(dataObject.getString("PRODUCT_DESCRIPTIONS"));
+                MPM.setProductCondition(dataObject.getString("PRODUCT_CONDITION"));
+                MPM.setProductNotes(dataObject.getString("PRODUCT_NOTES"));
+                MPM.setProductUnit(dataObject.getInt("PRODUCT_UNIT"));
+                MPM.setUnitId(dataObject.getInt("UNIT_ID"));
+                MPM.setEditedDate(stringDate);
+                MPM.setEditedBy(dataObject.getString("EDITED_BY"));
+                MPM.setIsActive(dataObject.getString("IS_ACTIVE"));
+                MPM.setProductId(dataObject.getInt("PRODUCT_ID"));
 
-                masterCategoryAO MCAO = new masterCategoryAO();
-                String jsonResponse = MCAO.updateMasterCategory(MWAM);
+                masterProductAO MPAO = new masterProductAO();
+                String jsonResponse = MPAO.updateMasterProduct(MPM);
 
                 RIS.setJsonResponse(jsonResponse);
 
@@ -210,7 +227,7 @@ public class masterProductController {
         }
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @RequestMapping(value="/deletecategory", method=RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<responseInfoServices> deleteMasterCategoryData(@Valid @RequestParam("timestamp") String timestamp, @Valid @RequestParam("data") String data) {
         responseInfoServices RIS = new responseInfoServices();

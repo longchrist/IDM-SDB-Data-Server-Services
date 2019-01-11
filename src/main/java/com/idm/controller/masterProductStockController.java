@@ -125,7 +125,7 @@ public class masterProductStockController {
                     int id_platform = idPlatform.getInt(String.valueOf(i));
                     int stock_per_platform = stockPerPlatform.getInt(String.valueOf(i));
 
-                    System.out.println("productstockid : "+product_stock_id+"stock : "+stock_per_platform);
+                    //System.out.println("productstockid : "+product_stock_id+"stock : "+stock_per_platform);
                     masterProductStockMod MPSM = new masterProductStockMod();
                     MPSM.setProductStockId(product_stock_id);
                     MPSM.setPlatformId(id_platform);

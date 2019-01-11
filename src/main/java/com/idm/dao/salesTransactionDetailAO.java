@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class salesTransactionDetailAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     /*public String getTransactionDetail(transactionDetailMod TDM){
         String jsonResponse = "";
 
@@ -88,7 +85,7 @@ public class salesTransactionDetailAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_transaction_detail (transaction_id, product_id, product_name, product_qty, product_price_per_unit, product_sales_per_unit, is_preorder, descriptions) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -105,6 +102,9 @@ public class salesTransactionDetailAO {
                 result = true;
                 messageResult = "Success add transaction detail data.";
             }
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;

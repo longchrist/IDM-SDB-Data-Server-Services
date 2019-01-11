@@ -74,8 +74,6 @@ public class salesTransactionController {
         responseInfoServices RIS = new responseInfoServices();
         HttpHeaders headers = new HttpHeaders();
 
-        String jsonResponse = "";
-
         if(!timestamp.equals("") && !data.equals("")) {
             try {
                 SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
@@ -147,9 +145,19 @@ public class salesTransactionController {
                         // end of minus stock function
 
                         salesTransactionDetailAO STDAO = new salesTransactionDetailAO();
-                        jsonResponse = STDAO.saveTransactionDetail(TDM);
+                        STDAO.saveTransactionDetail(TDM);
                     }
 
+                JSONObject JSONObjectRoot = new JSONObject();
+                JSONArray HEAD_DATA = new JSONArray();
+                JSONObject DATA = new JSONObject();
+
+                DATA.put("RESULT", "success");
+                DATA.put("MESSAGE", "SUCCESS. Process result with no-errors.");
+                HEAD_DATA.put(DATA);
+
+                JSONObjectRoot.put("responseMessage", DATA);
+                String jsonResponse = JSONObjectRoot.toString();
 
                 RIS.setJsonResponse(jsonResponse);
 

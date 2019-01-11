@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterShippingAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterShipping(){
         String jsonResponse = "";
 
@@ -34,7 +31,7 @@ public class masterShippingAO {
         JSONArray DATA_MASTER_SHIPPING = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT shipping_id, shipping_courier, shipping_service, is_active FROM tb_master_shipping";
@@ -58,6 +55,9 @@ public class masterShippingAO {
 
             JSONObjectRoot.put("DATA_MASTER_SHIPPING", DATA_MASTER_SHIPPING);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class masterShippingAO {
         JSONArray DATA_MASTER_SHIPPING = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT shipping_id, shipping_courier, shipping_service, is_active FROM tb_master_shipping WHERE shipping_id = ?");
             ps.setInt(1, MSM.getShippingId());
@@ -103,6 +103,9 @@ public class masterShippingAO {
 
             JSONObjectRoot.put("DATA_MASTER_SHIPPING", DATA_MASTER_SHIPPING);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +123,7 @@ public class masterShippingAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_shipping (shipping_courier, shipping_service, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MSM.getShippingCourier());
@@ -135,6 +138,9 @@ public class masterShippingAO {
                 result = true;
                 messageResult = "Success add shipping data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             result = false;
             messageResult = ""+e.getMessage();
@@ -162,7 +168,7 @@ public class masterShippingAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_shipping SET shipping_courier = ?, shipping_service = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE shipping_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MSM.getShippingCourier());
@@ -176,6 +182,9 @@ public class masterShippingAO {
                 result = true;
                 messageResult = "Success update shipping data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             result = false;
             messageResult = ""+e.getMessage();
@@ -203,7 +212,7 @@ public class masterShippingAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_shipping WHERE shipping_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSM.getShippingId());
@@ -212,6 +221,9 @@ public class masterShippingAO {
                 result = true;
                 messageResult = "Success delete shipping data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterSubCategoryAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterSubCategory(){
         String jsonResponse = "";
 
@@ -34,7 +31,7 @@ public class masterSubCategoryAO {
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT sub_category_id, category_id, sub_category, is_active FROM tb_master_sub_category";
@@ -58,6 +55,9 @@ public class masterSubCategoryAO {
 
             JSONObjectRoot.put("DATA_MASTER_SUB_CATEGORY", DATA_MASTER_SUB_CATEGORY);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class masterSubCategoryAO {
         JSONArray DATA_MASTER_SUB_CATEGORY = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.sub_category_id, b.category_id, b.category_name, a.sub_category, a.is_active FROM tb_master_sub_category a LEFT JOIN tb_master_category b ON a.category_id = b.category_id WHERE a.category_id = ?");
             ps.setInt(1, MSCM.getCategoryId());
@@ -106,6 +106,9 @@ public class masterSubCategoryAO {
 
             JSONObjectRoot.put("DATA_MASTER_SUB_CATEGORY", DATA_MASTER_SUB_CATEGORY);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,7 +126,7 @@ public class masterSubCategoryAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_sub_category (category_id, sub_category, is_active) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getCategoryId());
@@ -134,6 +137,9 @@ public class masterSubCategoryAO {
                 result = true;
                 messageResult = "Success add sub category data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -162,7 +168,7 @@ public class masterSubCategoryAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_sub_category SET category_id = ?, sub_category = ?, is_active = ? WHERE sub_category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getCategoryId());
@@ -174,6 +180,9 @@ public class masterSubCategoryAO {
                 result = true;
                 messageResult = "Success update sub category data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -202,7 +211,7 @@ public class masterSubCategoryAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_sub_category WHERE sub_category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MSCM.getSubCategoryId());
@@ -211,6 +220,9 @@ public class masterSubCategoryAO {
                 result = true;
                 messageResult = "Success delete sub_category data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

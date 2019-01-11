@@ -16,9 +16,6 @@ import com.idm.connection.dbConnection;
 public class masterCategoryAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterCategory(){
         String jsonResponse = "";
 
@@ -38,7 +35,7 @@ public class masterCategoryAO {
         JSONArray DATA_MASTER_CATEGORY = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT category_id, category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_category";
@@ -70,8 +67,13 @@ public class masterCategoryAO {
 
             JSONObjectRoot.put("DATA_MASTER_CATEGORY", DATA_MASTER_CATEGORY);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -96,7 +98,7 @@ public class masterCategoryAO {
         JSONArray DATA_MASTER_CATEGORY = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT category_id, category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active FROM tb_master_category WHERE category_id = ?");
             ps.setInt(1, MCM.getCategoryId());
@@ -128,8 +130,13 @@ public class masterCategoryAO {
 
             JSONObjectRoot.put("DATA_MASTER_CATEGORY", DATA_MASTER_CATEGORY);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
         }
 
         return jsonResponse;
@@ -147,7 +154,7 @@ public class masterCategoryAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_category (category_name, category_descriptions, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCategoryName());
@@ -162,10 +169,15 @@ public class masterCategoryAO {
                 result = true;
                 messageResult = "Success add category.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_CATEGORY = new JSONObject();
@@ -192,7 +204,7 @@ public class masterCategoryAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_category SET category_name = ?, category_descriptions = ?, is_active = ? WHERE category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCategoryName());
@@ -204,10 +216,15 @@ public class masterCategoryAO {
                 result = true;
                 messageResult = "Success update category data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_CATEGORY = new JSONObject();
@@ -234,7 +251,7 @@ public class masterCategoryAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_category WHERE category_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MCM.getCategoryId());
@@ -243,10 +260,15 @@ public class masterCategoryAO {
                 result = true;
                 messageResult = "Success delete category.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;
             messageResult = ""+e.getMessage();
+        } finally {
+
         }
 
         JSONObject DATA_CATEGORY = new JSONObject();

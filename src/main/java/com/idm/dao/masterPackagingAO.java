@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterPackagingAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterPackaging(){
         String jsonResponse = "";
 
@@ -34,7 +31,7 @@ public class masterPackagingAO {
         JSONArray DATA_MASTER_PACKAGING = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT packaging_id, packaging_type, packaging_price, is_active FROM tb_master_packaging";
@@ -58,6 +55,9 @@ public class masterPackagingAO {
 
             JSONObjectRoot.put("DATA_MASTER_PACKAGING", DATA_MASTER_PACKAGING);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class masterPackagingAO {
         JSONArray DATA_MASTER_PACKAGING = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT packaging_id, packaging_type, packaging_price, is_active FROM tb_master_packaging WHERE packaging_id = ?");
             ps.setInt(1, MPM.getPackagingId());
@@ -103,6 +103,9 @@ public class masterPackagingAO {
 
             JSONObjectRoot.put("DATA_MASTER_PACKAGING", DATA_MASTER_PACKAGING);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +123,7 @@ public class masterPackagingAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_packaging (packaging_type, packaging_price, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MPM.getPackagingType());
@@ -135,6 +138,9 @@ public class masterPackagingAO {
                 result = true;
                 messageResult = "Success add packaging data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -163,7 +169,7 @@ public class masterPackagingAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_packaging SET packaging_type = ?, packaging_price = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE packaging_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MPM.getPackagingType());
@@ -177,6 +183,9 @@ public class masterPackagingAO {
                 result = true;
                 messageResult = "Success update packaging data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -205,7 +214,7 @@ public class masterPackagingAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_packaging WHERE packaging_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPackagingId());
@@ -214,6 +223,9 @@ public class masterPackagingAO {
                 result = true;
                 messageResult = "Success delete packaging data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

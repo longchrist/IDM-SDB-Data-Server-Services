@@ -17,9 +17,6 @@ import java.sql.Statement;
 public class salesTransactionAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllTransaction(){
         String jsonResponse = "";
 
@@ -46,7 +43,7 @@ public class salesTransactionAO {
         JSONArray DATA_TRANSACTION = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT transaction_id, customer_id, platform_id, invoice, total_transaction, shipping_price, packaging_id, transaction_date, is_preorder, shipping_id, packaging_price, add_date, add_by, edited_date, edited_by FROM tb_transaction";
@@ -92,6 +89,9 @@ public class salesTransactionAO {
 
             JSONObjectRoot.put("DATA_TRANSACTION", DATA_TRANSACTION);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,7 +131,7 @@ public class salesTransactionAO {
         JSONArray DATA_TRANSACTION = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT a.transaction_id, a.customer_id, b.customer_name, b.customer_address, b.customer_province, b.customer_city, b.customer_zip, b.customer_phone, a.platform_id, c.platform_type, c.platform_name, a.invoice, a.total_transaction, a.shipping_price, a.packaging_id, a.transaction_date, a.is_preorder, a.shipping_id, d.shipping_courier, d.shipping_service, a.packaging_price, a.add_date, a.add_by, a.edited_date, a.edited_by, SUM(e.product_price_per_unit * e.product_qty) as fund_price, SUM(e.product_sales_per_unit * e.product_qty) as sales_price FROM tb_transaction a LEFT JOIN tb_master_customer b ON a.customer_id = b.customer_id LEFT JOIN tb_master_platform c ON a.platform_id = c.platform_id LEFT JOIN tb_master_shipping d ON a.shipping_id = d.shipping_id LEFT JOIN tb_transaction_detail e ON a.transaction_id = e.transaction_id WHERE a.transaction_date BETWEEN ? AND ? GROUP BY a.transaction_id");
             ps.setString(1, TDR.getTransactionDateFrom());
@@ -206,6 +206,9 @@ public class salesTransactionAO {
 
             JSONObjectRoot.put("DATA_TRANSACTION", DATA_TRANSACTION);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -225,7 +228,7 @@ public class salesTransactionAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_transaction (customer_id, platform_id, invoice, total_transaction, shipping_price, packaging_id, transaction_date, is_preorder, shipping_id, packaging_price, add_date, add_by, edited_date, edited_by)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, TM.getCustomerId());
@@ -251,6 +254,9 @@ public class salesTransactionAO {
                 result = true;
                 messageResult = "Success add transaction data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -279,7 +285,7 @@ public class salesTransactionAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_transaction SET\n" +
                     "customer_id = ?,\n" +
@@ -318,6 +324,9 @@ public class salesTransactionAO {
                 result = true;
                 messageResult = "Success update transaction data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -346,7 +355,7 @@ public class salesTransactionAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_transaction WHERE transaction_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, TM.getTransactionId());
@@ -355,6 +364,9 @@ public class salesTransactionAO {
                 result = true;
                 messageResult = "Success delete transaction data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

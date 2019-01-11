@@ -15,7 +15,6 @@ import javax.servlet.*;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class Application{
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
@@ -29,9 +28,9 @@ public class Application{
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/db_indomakers_data");
-        dataSource.setUsername( "root" );
-        dataSource.setPassword( "root" );
+        dataSource.setUrl("jdbc:mysql://indomakers.com:3306/db_indomakers_data");
+        dataSource.setUsername( "airoo.valkyrie" );
+        dataSource.setPassword( "123qwaszx.," );
         return dataSource;
     }
 

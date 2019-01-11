@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class photoAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String savePhoto(photoMod PM) throws JSONException {
         String jsonResponse = "";
 
@@ -29,7 +26,7 @@ public class photoAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_photo (product_id, photo_link, photo_descriptions, photo_alt, add_date, add_by, edited_date, edited_by, is_active, is_primary) VALUES (?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, PM.getProductId());
@@ -47,6 +44,9 @@ public class photoAO {
                 result = true;
                 messageResult = "Success add product photo data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

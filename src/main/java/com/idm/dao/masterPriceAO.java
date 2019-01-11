@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterPriceAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterPrice(){
         String jsonResponse = "";
 
@@ -36,7 +33,7 @@ public class masterPriceAO {
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT price_id, price_per_unit, sales_price, start_date, end_date, is_active FROM tb_master_price";
@@ -64,6 +61,9 @@ public class masterPriceAO {
 
             JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,7 +87,7 @@ public class masterPriceAO {
         JSONArray DATA_MASTER_PRICE = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT price_id, price_per_unit, sales_price, start_date, end_date, is_active FROM tb_master_price WHERE price_id = ?");
             ps.setInt(1, MPM.getPriceId());
@@ -115,6 +115,9 @@ public class masterPriceAO {
 
             JSONObjectRoot.put("DATA_MASTER_PRICE", DATA_MASTER_PRICE);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,7 +137,7 @@ public class masterPriceAO {
         String responseGeneratedKeys = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_price (price_per_unit, sales_price, start_date, end_date, is_active) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPricePerUnit());
@@ -151,6 +154,9 @@ public class masterPriceAO {
                 result = true;
                 messageResult = "Success add price data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -179,20 +185,22 @@ public class masterPriceAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
-            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_price SET price_per_unit = ?, sales_price = ?, start_date = ?, end_date = ?, is_active = ? WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_price SET price_per_unit = ?, sales_price = ?, start_date = ?, end_date = ? WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPricePerUnit());
             ps.setInt(2, MPM.getSalesPrice());
             ps.setString(3, MPM.getStartDate());
             ps.setString(4, MPM.getEndDate());
-            ps.setString(5, MPM.getIsActive());
-            ps.setInt(6, MPM.getPriceId());
+            ps.setInt(5, MPM.getPriceId());
 
             if(ps.executeUpdate() > 0){
                 result = true;
                 messageResult = "Success update price data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -221,7 +229,7 @@ public class masterPriceAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_price WHERE price_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MPM.getPriceId());
@@ -230,6 +238,9 @@ public class masterPriceAO {
                 result = true;
                 messageResult = "Success delete price data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

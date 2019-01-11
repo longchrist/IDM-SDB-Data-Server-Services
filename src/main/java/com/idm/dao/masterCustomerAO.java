@@ -16,9 +16,6 @@ import java.sql.Statement;
 public class masterCustomerAO {
     private Connection conn = null;
 
-    HikariConfig hikariConfig = new HikariConfig("/hikari.properties");
-    HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
-
     public String getAllMasterCustomer(){
         String jsonResponse = "";
 
@@ -39,7 +36,7 @@ public class masterCustomerAO {
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             stmt = conn.createStatement();
             String query = "SELECT customer_id, customer_name, customer_address, customer_province, customer_city, customer_zip, customer_country, customer_phone, is_active FROM tb_master_customer";
@@ -73,6 +70,9 @@ public class masterCustomerAO {
 
             JSONObjectRoot.put("DATA_MASTER_CUSTOMER", DATA_MASTER_CUSTOMER);
             jsonResponse += JSONObjectRoot.toString();
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +99,7 @@ public class masterCustomerAO {
         JSONArray DATA_MASTER_CUSTOMER = new JSONArray();
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("SELECT customer_id, customer_name, customer_address, customer_province, customer_city, customer_zip, customer_country, customer_phone, is_active FROM tb_master_customer WHERE customer_id = ?");
             ps.setInt(1, MCM.getCustomerId());
@@ -133,6 +133,9 @@ public class masterCustomerAO {
 
             JSONObjectRoot.put("DATA_MASTER_CUSTOMER", DATA_MASTER_CUSTOMER);
             jsonResponse += JSONObjectRoot.toString();
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,7 +153,7 @@ public class masterCustomerAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("INSERT INTO tb_master_customer (customer_name, customer_address, customer_province, customer_city, customer_zip, customer_country, customer_phone, add_date, add_by, edited_date, edited_by, is_active) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCustomerName());
@@ -170,6 +173,9 @@ public class masterCustomerAO {
                 result = true;
                 messageResult = "Success add customer data.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
             result = false;
@@ -198,7 +204,7 @@ public class masterCustomerAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("UPDATE tb_master_customer SET customer_name = ?, customer_address = ?, customer_province = ?, customer_city = ?, customer_zip = ?, customer_country = ?, customer_phone = ?, edited_date = ?, edited_by = ?, is_active = ? WHERE customer_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, MCM.getCustomerName());
@@ -218,6 +224,7 @@ public class masterCustomerAO {
                 messageResult = "Success update customer data.";
             }
 
+            ps.close();
             conn.close();
         } catch (Exception e) {
             //e.printStackTrace();
@@ -248,7 +255,7 @@ public class masterCustomerAO {
         String messageResult = "";
 
         try {
-            conn = hikariDataSource.getConnection();
+            conn = dbConnection.getConnection();
 
             PreparedStatement ps = this.conn.prepareStatement("DELETE FROM tb_master_customer WHERE customer_id = ?", Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, MCM.getCustomerId());
@@ -257,6 +264,9 @@ public class masterCustomerAO {
                 result = true;
                 messageResult = "Success delete customer.";
             }
+
+            ps.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             result = false;
